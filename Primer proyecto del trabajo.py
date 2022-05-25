@@ -9,6 +9,5 @@ def bryan_chupalo():
     while Bryan == boludo:
         print('Bryan chupalo')
 bryan_chupalo()
-=======
-geirjga
->>>>>>> main
+
+#pruebas git
