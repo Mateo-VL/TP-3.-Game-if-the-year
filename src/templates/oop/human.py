@@ -1,5 +1,5 @@
 import random
-from player import Player
+from src.templates.oop.player import Player
 
 
 class Human(Player):

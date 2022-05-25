@@ -1,8 +1,8 @@
 from typing import Union
 
 
-import mapping
-import player
+import src.templates.oop.mapping as mapping
+import src.templates.oop.player as player
 
 
 numeric = Union[int, float]

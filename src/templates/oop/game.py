@@ -4,9 +4,9 @@ import mapping
 import magic
 
 import random
-from human import Human
-from items import Item
-import actions
+from src.templates.oop.human import Human
+from src.templates.oop.items import Item
+import src.templates.oop.actions as actions
 
 
 ROWS = 25

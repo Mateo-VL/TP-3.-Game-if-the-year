@@ -1,11 +1,12 @@
 import random
 from typing import Optional
+from typing import List, Tuple
 
-import player
-import items
+import src.templates.oop.player as player
+import src.templates.oop.items as items
 
 
-Location = tuple[int, int]
+Location = Tuple[int, int]
 
 
 class Tile:
@@ -151,7 +152,7 @@ class Level:
         j, i = xy
         return self.tiles[i][j]
 
-    def get_items(self, xy: Location) -> list[items.Item]:
+    def get_items(self, xy: Location) -> List[items.Item]:
         """Get a list of all items at a given location. Removes the items from that location."""
         j, i = xy
         if (i, j) in self.items:
@@ -250,7 +251,7 @@ class Dungeon:
         """
         return self.dungeon[self.level].index(tile)
 
-    def get_items(self, xy: Location) -> list[items.Item]:
+    def get_items(self, xy: Location) -> List[items.Item]:
         """Get a list of all items at a given location. Removes the items from that location. See Level.get_items()."""
         return self.dungeon[self.level].get_items(xy)
 
