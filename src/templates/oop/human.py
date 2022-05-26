@@ -20,5 +20,5 @@ class Human(Player):
         self.hp = 0
         self.alive = False
 
-    def has_sword(self):
-        # completar
+#def has_sword(self):
+# completar
