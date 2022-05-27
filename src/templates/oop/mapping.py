@@ -110,7 +110,7 @@ class Level:
         location, and a face attribute. All items in the map must have a face attribute which is going to be shown. If
         there are multiple items in one location, only one will be rendered.
         """
-        # completar (cuando se agregue el gnomo)
+        
         print("-" + "-" * len(self.tiles[0]) + "-")
         for i, row in enumerate(self.tiles):
             print("|", end="")
@@ -162,7 +162,7 @@ class Level:
             items = []
         return items
 
-    def dig(self, xy: Location) -> None:
+    def dig(self, xy: Location) -> None:   #cuando rompe pared?
         """Replace a WALL at the given location, by AIR."""
         j, i = xy
         if self.tiles[i][j] is WALL:
@@ -170,7 +170,7 @@ class Level:
 
     def is_free(self, xy: Location) -> bool:
         """Check if a given location is free of other entities."""
-        # completar
+        # completar   ver si no hay gnomo?
         raise NotImplementedError
 
     def are_connected(self, initial: Location, end: Location) -> bool:
@@ -184,6 +184,7 @@ class Level:
         raise NotImplementedError
 
 
+    
 class Dungeon:
     """Dungeon(rows: int, columns: int, levels: int = 3) -> Dungeon
 

@@ -16,3 +16,5 @@ class Player:
 
     def __repr__(self):
         return f"Player('{self.name}', '{self.loc}', '{self.hp}')"
+
+#ver q pico este en ubicacion alcanzable. disponible desde nivel 1?
