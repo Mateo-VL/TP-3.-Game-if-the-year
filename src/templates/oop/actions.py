@@ -2,13 +2,8 @@ from typing import Union, Tuple
 
 
 import src.templates.oop.mapping as mapping
-<<<<<<< HEAD
 import src.templates.oop.player as player
 import src.templates.oop.human as human
-=======
-import src.templates.oop.player as player 
-
->>>>>>> main
 
 numeric = Union[int, float]
 
@@ -62,7 +57,6 @@ def descend_stair(dungeon: mapping.Dungeon, player: player.Player):
 
 def pickup(dungeon: mapping.Dungeon, player: player.Player):
     # completar
-    if xyplayer ==xyamulet
     raise NotImplementedError
 
 
