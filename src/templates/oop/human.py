@@ -3,7 +3,7 @@ from src.templates.oop.player import Player
 
 
 class Human(Player):
-    def __init__(self, name, xy):
+    def __init__(self, name: str, xy):
         super().__init__(name, xy, 50)
         self.weapon = None
         self.treasure = None
