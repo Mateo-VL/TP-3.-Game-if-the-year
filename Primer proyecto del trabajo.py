@@ -1,13 +1,19 @@
-Primer proyecto del trabajo
-Primer proyecto del trabajo
-gpltwgok5h
+'''import keyboard
+capo = True
+while capo:
+    if keyboard.read_key() == "p":
+        print("You pressed p")
+    if keyboard.read_key() == 'q':
+        capo = False
+    
 
+while True:
+    if keyboard.is_pressed("q"):
+        print("You pressed q")
+        break
+        
+keyboard.on_press_key("r", lambda _:print("You pressed r"))'''
 
-def bryan_chupalo():
-    boludo = True
-    Bryan = boludo
-    while Bryan == boludo:
-        print('Bryan chupalo')
-bryan_chupalo()
-gilcagonyhy
-#pruebas git
+import msvcrt
+key = msvcrt.getch()
+print (key)

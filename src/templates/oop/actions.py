@@ -16,16 +16,9 @@ def clip(value: numeric, minimum: numeric, maximum: numeric) -> numeric:
     return value
 
 
-<<<<<<< HEAD
-def attack(dungeon, player, ...): # completar xygnomo xyplayer
-    # completar
-    
-    raise NotImplementedError
-=======
 #def attack(dungeon, player, ...): # completar
     # completar
    # raise NotImplementedError
->>>>>>> main
 
 
 def move_to(dungeon: mapping.Dungeon, player: player.Player, location: Tuple[numeric, numeric]):
@@ -61,5 +54,5 @@ def pickup(dungeon: mapping.Dungeon, player: player.Player):
 
 
 
-def gnome_action(dungeon: mapping.Dungeon, player: player.Player):
+#def gnome_action(dungeon: mapping.Dungeon, player: player.Player):
     #random entre lugares disponibles
