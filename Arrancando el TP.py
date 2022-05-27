@@ -6,7 +6,7 @@ import src.templates.oop.actions as actions
 
 NIVEL = mapa.Level(25, 80)
 MATEO = human.Human('Mateo', NIVEL.find_free_tile())
-NIVEL.render(MATEO)
+#NIVEL.render(MATEO)
 actions.move_up(NIVEL, MATEO)
 NIVEL.render(MATEO)
 

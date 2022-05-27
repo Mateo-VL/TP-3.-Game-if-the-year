@@ -18,3 +18,10 @@ class Player:
         return f"Player('{self.name}', '{self.loc}', '{self.hp}')"
 
 #ver q pico este en ubicacion alcanzable. disponible desde nivel 1?
+
+class Gnome:
+    def __init__(self, xy, alive=True):
+        self.x, self.y = xy
+        self.alive= True
+        self.face = "G"
+        
