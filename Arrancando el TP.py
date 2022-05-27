@@ -1,13 +1,16 @@
 import src.templates.oop.mapping as mapa
-
-import src.templates.oop.mapping as mapa
 import src.templates.oop.human as human
+import src.templates.oop.actions as actions
 
 
 
-DUNGEON = mapa.Dungeon(25, 80)
-MATEO = human.Human('Mateo', DUNGEON.find_free_tile())
-DUNGEON.render(MATEO)
+NIVEL = mapa.Level(25, 80)
+MATEO = human.Human('Mateo', NIVEL.find_free_tile())
+NIVEL.render(MATEO)
+actions.move_up(NIVEL, MATEO)
+NIVEL.render(MATEO)
+
+
 
 
 
