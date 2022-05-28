@@ -27,22 +27,22 @@ def move_to(dungeon: mapping.Dungeon, player: player.Player, location: Tuple[num
 
 
 def move_up(NIVEL: mapping.Dungeon, player: player.Player):
-    if NIVEL.is_walkable([player.x, player.y-1]):
-        if player.y>0:
+    if NIVEL.is_walkable([player.x, player.y-1]) or player.tool==True :   # con pico atraviese pared. Ver de que desaparezca
+        if player.y>0:  #no pasar limite
             player.move_to((player.x, player.y - 1))
     
 def move_down(NIVEL: mapping.Dungeon, player: player.Player, rows: int):  #recibe cant de filas
-    if NIVEL.is_walkable([player.x, player.y+1]):
+    if NIVEL.is_walkable([player.x, player.y+1]) or player.tool==True:
         if player.y< rows -1:    #objeto.valor
             player.move_to((player.x, player.y +1))
 
 def move_left(NIVEL: mapping.Dungeon, player: player.Player):
-    if NIVEL.is_walkable([player.x - 1, player.y]):
+    if NIVEL.is_walkable([player.x - 1, player.y]) or player.tool==True:
         if player.x>0:
             player.move_to((player.x - 1, player.y))
 
 def move_right(NIVEL: mapping.Dungeon, player: player.Player, columns: int):  #recibe cant de columnas
-    if NIVEL.is_walkable([player.x + 1, player.y]):
+    if NIVEL.is_walkable([player.x + 1, player.y]) or player.tool==True:
         if player.x< columns -1:
             player.move_to((player.x + 1, player.y))
 

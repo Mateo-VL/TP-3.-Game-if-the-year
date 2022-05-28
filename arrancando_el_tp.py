@@ -2,7 +2,7 @@ import src.templates.oop.mapping as mapa
 import src.templates.oop.human as human
 import src.templates.oop.actions as actions
 import src.templates.oop.player as player
-
+import src.templates.oop.items as items
 
 '''NIVEL = mapa.Level(25, 80)
 MATEO = human.Human('Mateo', NIVEL.find_free_tile())
@@ -31,12 +31,20 @@ while capo:
         capo = False
     NIVEL.render(MATEO)
 '''
+ 
+SWORD= items.Sword("Sword", "/", 10, 20, NIVEL.find_free_tile())
+
+AMULET= items.Amulet("Amulet", "''", NIVEL.find_free_tile())
+
+PICKAXE= items.PickAxe("Pickaxe", "(", NIVEL.find_free_tile())
 import msvcrt
 #GNOME= player.Gnome(NIVEL.find_free_tile())
 rows= NIVEL.rows
 columns= NIVEL.columns
 capo = True 
-NIVEL.render(MATEO)  #sumar arg gnomo
+#NIVEL.render(MATEO)  #sumar arg gnomo
+NIVEL.render(MATEO, SWORD,AMULET, PICKAXE)
+
 while capo:
     key = msvcrt.getch()
     if key == b'w':
@@ -49,8 +57,19 @@ while capo:
         actions.move_right(NIVEL, MATEO, columns)  #recibe cant columnas
     else:
         capo = False
-    NIVEL.render(MATEO)
+    NIVEL.render(MATEO,SWORD,AMULET, PICKAXE)
+#el dig reemp paredes x espacio
 
- 
+#capo=Fals
+"""
+if NIVEL.is_walkable== False and player.tool== True:
+    NIVEL.dig(player.x, player.y)
+    MATEO.take_tool()
+if NIVEL.is_walkable== False and player.tool== True:
+    NIVEL.dig(player.x, player.y)
+"""
+
+
+
 
 

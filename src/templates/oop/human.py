@@ -14,6 +14,10 @@ class Human(Player):
     def get_face(self):
         return self.face
 
+    def take_tool(self):
+        self.tool= True
+        return self.tool
+
     def damage(self):
         if self.sword:
             return random.random() * 20 + 5
