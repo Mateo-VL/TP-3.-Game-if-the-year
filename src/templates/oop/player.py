@@ -6,7 +6,7 @@ class Player:
         self.max_hp = hit_points
 
     def loc(self):
-        return self.x, self.y
+        return self.x, self.y 
 
     def move_to(self, xy):
         self.x, self.y = xy

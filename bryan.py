@@ -2,7 +2,7 @@ import src.templates.oop.mapping as mapa
 import src.templates.oop.human as human 
 import src.templates.oop.player as player
 BRYAN = human.Human('Bryan', (0,0))  #modulo.clase(argumentos)
-
+print(BRYAN.hp)
 def printface():
     print(BRYAN.get_face()) #se fija si objeto tiene funcion en clase llamada getface
 
@@ -21,11 +21,12 @@ def mostrar():
 
 mostrar()  
 
-MAPA= mapa.Level(35,70)
-
+#MAPA= mapa.Level(35,70)
+"""
 def mostr():
     MAPA.render(BRYAN)
 mostr()
 
 if (j, i) == player.loc():
                     print(player.face, end='')
+"""
