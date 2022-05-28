@@ -36,7 +36,7 @@ import msvcrt
 rows= NIVEL.rows
 columns= NIVEL.columns
 capo = True 
-NIVEL.render(MATEO)  #smar arg gnomo
+NIVEL.render(MATEO)  #sumar arg gnomo
 while capo:
     key = msvcrt.getch()
     if key == b'w':
