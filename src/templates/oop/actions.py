@@ -16,14 +16,15 @@ def clip(value: numeric, minimum: numeric, maximum: numeric) -> numeric:
     return value
 
 
-def attack(dungeon, player, ...): # completar
-    #completar
-    raise NotImplementedError
+#def attack(dungeon, player, ...): # completar
+    # completar
+   # raise NotImplementedError
 
-def move_to(dungeon: mapping.Dungeon, player: player.Player, location: Tuple[numeric, numeric]):
+#locacion= [player.x, player.y]
+def move_to(NIVEL: mapping.Dungeon, player: player.Player, location: Tuple[numeric, numeric]):
     # completar
     if NIVEL.is_walkable(location):
-        player.move_to(NIVEL, player, location)
+        player.move_to(location)
     #raise NotImplementedError
     elif not NIVEL.is_walkable(location) and player.tool== True:
         NIVEL.dig(location)
