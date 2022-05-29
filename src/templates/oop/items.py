@@ -19,6 +19,8 @@ class Item:
 
     def __repr__(self):
         return f"Item('{self.name}', '{self.face}')"
+    
+
 
 
 class Sword(Item):
@@ -36,3 +38,5 @@ class Amulet(Item):
 class PickAxe(Item):
     def __init__(self, name: str, fc: str, xy):
         super().__init__(name, fc, 'tool', xy)
+
+

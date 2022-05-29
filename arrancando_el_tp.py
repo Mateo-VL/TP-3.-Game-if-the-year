@@ -30,6 +30,13 @@ while capo:
     if keyboard.read_key() == "e":
         capo = False
     NIVEL.render(MATEO)
+
+elif (j,i)== sword.loc():
+                    print(sword.face, end='')
+                elif (j,i)== amulet.loc():
+                    print(amulet.face, end='')
+                elif (j,i)== pickaxe.loc():
+                    print(pickaxe.face, end='')
 '''
  
 SWORD= items.Sword("Sword", "/", 10, 20, NIVEL.find_free_tile())
@@ -37,15 +44,19 @@ SWORD= items.Sword("Sword", "/", 10, 20, NIVEL.find_free_tile())
 AMULET= items.Amulet("Amulet", "''", NIVEL.find_free_tile())
 
 PICKAXE= items.PickAxe("Pickaxe", "(", NIVEL.find_free_tile())
+print(type(PICKAXE))
 import msvcrt
 #GNOME= player.Gnome(NIVEL.find_free_tile())
 rows= NIVEL.rows
 columns= NIVEL.columns
 capo = True 
 #NIVEL.render(MATEO)  #sumar arg gnomo
-NIVEL.render(MATEO, SWORD,AMULET, PICKAXE)
-
-while capo:
+#NIVEL.render(MATEO)
+NIVEL.add_item(PICKAXE, PICKAXE.loc())   #ya imprime mapa
+NIVEL.add_item(SWORD, SWORD.loc())
+NIVEL.add_item(AMULET, AMULET.loc())
+NIVEL.render(MATEO)
+while capo:  #MATEO.alive?
     key = msvcrt.getch()
     if key == b'w':
         actions.move_up(NIVEL, MATEO)
@@ -57,10 +68,23 @@ while capo:
         actions.move_right(NIVEL, MATEO, columns)  #recibe cant columnas
     else:
         capo = False
-    NIVEL.render(MATEO,SWORD,AMULET, PICKAXE)
+    
+    if MATEO.loc() in NIVEL.items:
+     
+        #if MATEO.loc() in NIVEL.items: #diccionario donde claves son ubic de items
+        list_items= NIVEL.items[MATEO.loc()]
+        MATEO.take_object(list_items)
+    
+    NIVEL.get_items(MATEO.loc()) 
+    NIVEL.dig(MATEO.loc())
+    NIVEL.render(MATEO)
+        #MATEO.take_tool()
+
+            
 #el dig reemp paredes x espacio
 
 #capo=Fals
+
 """
 if NIVEL.is_walkable== False and player.tool== True:
     NIVEL.dig(player.x, player.y)
