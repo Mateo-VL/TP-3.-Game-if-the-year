@@ -74,8 +74,8 @@ while capo:  #MATEO.alive?
         #if MATEO.loc() in NIVEL.items: #diccionario donde claves son ubic de items
         list_items= NIVEL.items[MATEO.loc()]
         MATEO.take_object(list_items)
-    #if MATEO.loc()== PICKAXE.loc():
-       # MATEO.tool= True
+    if MATEO.loc()== PICKAXE.loc():
+        MATEO.tool= True
     NIVEL.get_items(MATEO.loc()) 
     NIVEL.dig(MATEO.loc())
     NIVEL.render(MATEO)

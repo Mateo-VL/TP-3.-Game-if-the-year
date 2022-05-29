@@ -26,7 +26,8 @@ def move_to(NIVEL: mapping.Dungeon, player: player.Player, location: Tuple[numer
     if NIVEL.is_walkable(location):
         player.move_to(location)
     #raise NotImplementedError
-    elif NIVEL.is_walkable(location)== False and player.tool== True:
+    elif NIVEL.is_walkable(location)== False and player.tool== True: 
+        player.move_to(location)
         NIVEL.dig(location)
 
 def move_up(NIVEL: mapping.Dungeon, player: player.Player):
