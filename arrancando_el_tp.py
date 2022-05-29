@@ -41,7 +41,7 @@ elif (j,i)== sword.loc():
  
 SWORD= items.Sword("Sword", "/", 10, 20, NIVEL.find_free_tile())
 
-AMULET= items.Amulet("Amulet", "''", NIVEL.find_free_tile())
+AMULET= items.Amulet("Amulet", '"', NIVEL.find_free_tile())
 
 PICKAXE= items.PickAxe("Pickaxe", "(", NIVEL.find_free_tile())
 print(type(PICKAXE))
