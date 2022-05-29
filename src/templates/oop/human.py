@@ -1,5 +1,7 @@
 import random
+from src.templates.oop.items import Item
 from src.templates.oop.player import Player
+from typing import List
 
 
 class Human(Player):
@@ -13,6 +15,17 @@ class Human(Player):
 
     def get_face(self):
         return self.face
+
+    def take_object(self, list_items: List [Item]):
+        for i in list_items:
+            if i.type == "weapon":
+                self.weapon= True
+            elif i.type== "treasure":
+                self.treasure= True
+            elif i.type== "tool":
+                self.tool= True
+            
+
 
     def damage(self):
         if self.sword:
