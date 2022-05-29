@@ -6,13 +6,12 @@ import msvcrt
 
 DUNGEON = mapa.Dungeon(25, 80)   #pedir parametros para ver longitud y ver que no pase limites
 MATEO = human.Human('Mateo', DUNGEON.find_free_tile())
-
-
-#GNOME= player.Gnome(DUNGEON.find_free_tile())
 rows= DUNGEON.rows
 columns= DUNGEON.columns
 capo = True 
-DUNGEON.render(MATEO)  #sumar arg gnomo
+
+
+DUNGEON.render(MATEO)
 while capo:
     key = msvcrt.getch()
     if key == b'w':
@@ -23,8 +22,15 @@ while capo:
         actions.move_down(DUNGEON, MATEO, rows)  #recibe cant filas
     elif key == b'd':
         actions.move_right(DUNGEON, MATEO, columns)  #recibe cant columnas
+
     else:
         capo = False
+    stair_down = DUNGEON.dungeon[DUNGEON.level].index(mapa.STAIR_DOWN)
+    stair_up = DUNGEON.dungeon[DUNGEON.level].index(mapa.STAIR_UP)
+    if MATEO.loc() == stair_down:
+        DUNGEON.level += 1
+    if MATEO.loc() == stair_up:
+        DUNGEON.level -= 1
     
     DUNGEON.render(MATEO)
 
