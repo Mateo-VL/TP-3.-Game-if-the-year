@@ -2,8 +2,8 @@ import random
 from typing import Optional
 from typing import List, Tuple
 
-import src.templates.oop.player as player 
-import src.templates.oop.items as  items 
+import src.templates.oop.player as player
+import src.templates.oop.items as items
 
 
 Location = Tuple[int, int]
@@ -110,12 +110,11 @@ class Level:
         location, and a face attribute. All items in the map must have a face attribute which is going to be shown. If
         there are multiple items in one location, only one will be rendered.
         """
-        
         print("-" + "-" * len(self.tiles[0]) + "-")
         for i, row in enumerate(self.tiles):
             print("|", end="")
             for j, cell in enumerate(row):
-                if (j, i) == player.loc():
+                if (j, i) == player.loc():     #hacer lo = con gnome
                     print(player.face, end='')
                 elif (i, j) in self.items:
                     print(self.items[(i, j)][0].face, end='')
