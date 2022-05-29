@@ -21,35 +21,35 @@ def clip(value: numeric, minimum: numeric, maximum: numeric) -> numeric:
    # raise NotImplementedError
 
 #locacion= [player.x, player.y]
-def move_to(NIVEL: mapping.Dungeon, player: player.Player, location: Tuple[numeric, numeric]):
+def move_to(dungeon: mapping.Dungeon, player: player.Player, location: Tuple[numeric, numeric]):
     # completar
-    if NIVEL.is_walkable(location):
+    if dungeon.is_walkable(location):
         player.move_to(location)
     #raise NotImplementedError
-    elif NIVEL.is_walkable(location)== False and player.tool== True:
-        NIVEL.dig(location)
+    elif dungeon.is_walkable(location)== False and player.tool== True:
+        dungeon.dig(location)
 
-def move_up(NIVEL: mapping.Dungeon, player: player.Player):
-    #if NIVEL.is_walkable([player.x, player.y-1]) or player.tool==True:   # con pico atraviese pared. Ver de que desaparezca
+def move_up(dungeon: mapping.Dungeon, player: player.Player):
+    #if dungeon.is_walkable([player.x, player.y-1]) or player.tool==True:   # con pico atraviese pared. Ver de que desaparezca
     if player.y>0:  #no pasar limite
-        move_to(NIVEL, player, [player.x, player.y -1])
+        move_to(dungeon, player, [player.x, player.y -1])
             #player.move_to((player.x, player.y - 1))
     
-def move_down(NIVEL: mapping.Dungeon, player: player.Player, rows: int):  #recibe cant de filas
-    #if NIVEL.is_walkable([player.x, player.y+1]) or player.tool==True:
+def move_down(dungeon: mapping.Dungeon, player: player.Player, rows: int):  #recibe cant de filas
+    #if dungeon.is_walkable([player.x, player.y+1]) or player.tool==True:
     if player.y< rows -1:    #objeto.valor
-        move_to(NIVEL, player,(player.x, player.y +1))
+        move_to(dungeon, player,(player.x, player.y +1))
     #llamar a dig
 
-def move_left(NIVEL: mapping.Dungeon, player: player.Player):
-    #if NIVEL.is_walkable([player.x - 1, player.y]) or player.tool==True:
+def move_left(dungeon: mapping.Dungeon, player: player.Player):
+    #if dungeon.is_walkable([player.x - 1, player.y]) or player.tool==True:
     if player.x>0:
-        move_to(NIVEL, player,(player.x - 1, player.y))
+        move_to(dungeon, player,(player.x - 1, player.y))
 
-def move_right(NIVEL: mapping.Dungeon, player: player.Player, columns: int):  #recibe cant de columnas
-    #if NIVEL.is_walkable([player.x + 1, player.y]) or player.tool==True:
+def move_right(dungeon: mapping.Dungeon, player: player.Player, columns: int):  #recibe cant de columnas
+    #if dungeon.is_walkable([player.x + 1, player.y]) or player.tool==True:
     if player.x< columns -1:
-        move_to(NIVEL, player,(player.x + 1, player.y))
+        move_to(dungeon, player,(player.x + 1, player.y))
 
 def climb_stair(dungeon: mapping.Dungeon, player: player.Player):
     # completar
