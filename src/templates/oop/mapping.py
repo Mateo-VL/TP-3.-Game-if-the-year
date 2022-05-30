@@ -170,6 +170,11 @@ class Level:
     def is_free(self, xy: Location) -> bool:
         """Check if a given location is free of other entities."""
         # completar   ver si no hay gnomo?
+        #if self.is_walkable(xy) ==True:
+            #return True
+        #else:
+            #return False
+
         raise NotImplementedError
 
     def are_connected(self, initial: Location, end: Location) -> bool:
@@ -180,6 +185,9 @@ class Level:
     def get_path(self, initial: Location, end: Location) -> bool:
         """Return a sequence of locations between initial location and end location, if it exits."""
         # completar
+        #if initial == end:
+            #return True
+       # elif:
         raise NotImplementedError
 
 
@@ -258,7 +266,7 @@ class Dungeon:
     def dig(self, xy: Location) -> None:
         """Replace a WALL at the given location, by AIR. See Level.dig()."""
         return self.dungeon[self.level].dig(xy)
-
+#completar
     def is_free(self, xy: Location) -> bool:
         """NOT IMPLEMENTED. Check if a given location is free of other entities. See Level.is_free()."""
         return self.dungeon[self.level].is_free(xy)

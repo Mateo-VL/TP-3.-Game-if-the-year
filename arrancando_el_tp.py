@@ -18,7 +18,7 @@ PICKAXE= items.PickAxe("Pickaxe", "(", DUNGEON.find_free_tile())
 rows= DUNGEON.rows
 columns= DUNGEON.columns
 capo = True 
-DUNGEON.add_item(PICKAXE, 1, PICKAXE.loc())   #ya imprime mapa
+DUNGEON.add_item(PICKAXE, 1, PICKAXE.loc())   #ya imprime mapa  #podemos hacer random
 DUNGEON.add_item(SWORD, 1, SWORD.loc())
 DUNGEON.add_item(AMULET, 3, AMULET.loc())
 DUNGEON.render(MATEO)
@@ -34,7 +34,7 @@ while capo:  #MATEO.alive?
         actions.move_right(DUNGEON, MATEO, columns)  #recibe cant columnas
     else:
         capo = False
-    
+    #ver
     if MATEO.loc() in DUNGEON.dungeon[DUNGEON.level].items:
         list_items= DUNGEON.dungeon[DUNGEON.level].items[MATEO.loc()]
         MATEO.take_object(list_items)
@@ -54,11 +54,29 @@ while capo:  #MATEO.alive?
         if DUNGEON.level == 0:
             capo = False
         else:
-            DUNGEON.level -= 1
+            DUNGEON.level -= 1   
     
     DUNGEON.render(MATEO)
 
 
+#en nivel 3 apenas se mueve se termina el juego
+
+
+"""
+COSAS POR HACER:
+-que cuando regrese al nivel anterior quede el mismo mapa (y que no cree otro nuevo)
+- que cuando pase por items cambie estado de objeto = True (ver funcion take_object en human)
+-completar funciones para ver si hay camino posible. ver mapping (al menos para el nivel 1, donde hay q fijarse que haya camino entre personaje y pico)
+- que se pueda mover en nivel 3 (cuando se apreta tecla se termina el juego, ver error)
+-pasar la funcion que se fija la tecla apretada al archivo game. lo mismo con lo de agarrar los items (funcion pick_up en actions)
+- hacer que imprima HP del jugador, los turnos, que items tiene, el nivel en el que está.
+- ver que hacer si jugador se queda sin vidas restantes.
+- hacer funcion has_sword (en human). si está en = posicion que Gnomo, lo mata (y q aparezca nuevamente en siguiente nivel). fijarse que al volver al nivel anterior el gnomo
+no aparezca (si se mató antes).
+- hacer clase Gnome. que esté en cada nivel. hacer que desaparezca si se mata. Que se mueva con random
+- pasar lo de las escaleras a archivo actions
+- hacer que si está en una escalera tenga que volver a apretar la tecla para cambiar nivel?
 
 
 
+"""
