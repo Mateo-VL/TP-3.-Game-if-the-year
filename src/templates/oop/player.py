@@ -18,10 +18,24 @@ class Player:
         return f"Player('{self.name}', '{self.loc}', '{self.hp}')"
 
 #ver q pico este en ubicacion alcanzable. disponible desde nivel 1?
-"""
-class Gnome:
-    def __init__(self, xy, alive=True):
-        self.x, self.y = xy
+import random 
+
+class Gnome(Player):
+    def __init__(self, name,  xy):
+        super().__init__(name, xy, 1)
+        #self.name= name
+        #self.x, self.y = xy
         self.alive= True
         self.face = "G"
+        self.tool= False  
+
+    def get_face(self):
+        return self.face
+"""
+def gnome_movement():
+    list_number=[1,2,3,4]
+    random_num= random.choice(list_number)
+    if random_num==1:
+        actions.
+
 """

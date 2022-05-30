@@ -32,7 +32,7 @@ class Human(Player):
             return random.random() * 20 + 5
         return random.random() * 10 + 1
 
-    def kill(self):
+    def kill(self):  #si gnomo= lugar que jugador (y no tienes espada) hp -1.  if hp==0: player.kill
         self.hp = 0
         self.alive = False
 

@@ -1,12 +1,13 @@
 import src.templates.oop.mapping as mapa
 import src.templates.oop.human as human
 import src.templates.oop.actions as actions
-#import src.templates.oop.player as player
+import src.templates.oop.player as player
 import src.templates.oop.items as items
 import msvcrt
 
 DUNGEON = mapa.Dungeon(25, 80)   #pedir parametros para ver longitud y ver que no pase limites
 MATEO = human.Human('Mateo', DUNGEON.find_free_tile())
+GNOME= player.Gnome("Gnome", DUNGEON.find_free_tile())
 
 SWORD= items.Sword("Sword", "/", 10, 20, DUNGEON.find_free_tile())
 
@@ -14,14 +15,27 @@ AMULET= items.Amulet("Amulet", '"', DUNGEON.dungeon[2].find_free_tile())
 
 PICKAXE= items.PickAxe("Pickaxe", "(", DUNGEON.find_free_tile())
 
-
+import random
+def gnome_movement():
+    list_number=[1,2,3,4]
+    random_num= random.choice(list_number)
+    if random_num==1:
+        actions.move_up(DUNGEON, GNOME)
+    elif random_num==2:
+        actions.move_left(DUNGEON, GNOME)
+    elif random_num==3:
+        actions.move_down(DUNGEON, GNOME, rows)
+    elif random_num==4:
+        actions.move_right(DUNGEON, GNOME, columns)
+    return 
 rows= DUNGEON.rows
 columns= DUNGEON.columns
 capo = True 
 DUNGEON.add_item(PICKAXE, 1, PICKAXE.loc())   #ya imprime mapa  #podemos hacer random
 DUNGEON.add_item(SWORD, 1, SWORD.loc())
 DUNGEON.add_item(AMULET, 3, AMULET.loc())
-DUNGEON.render(MATEO)
+DUNGEON.add_item(GNOME, 1, GNOME.loc())
+DUNGEON.render(MATEO, GNOME)
 while capo:  #MATEO.alive?
     key = msvcrt.getch()
     if key == b'w':
@@ -41,7 +55,7 @@ while capo:  #MATEO.alive?
     
     if MATEO.loc()== PICKAXE.loc():
         MATEO.tool= True
-    
+    DUNGEON.add_item(GNOME, 1, GNOME.loc())
     DUNGEON.get_items(MATEO.loc()) 
     DUNGEON.dig(MATEO.loc())
     
@@ -55,10 +69,10 @@ while capo:  #MATEO.alive?
             capo = False
         else:
             DUNGEON.level -= 1   
-    
-    DUNGEON.render(MATEO)
+    gnome_movement()
+    DUNGEON.render(MATEO, GNOME)  #hice cambios en render (level y dungeon) lineas 108 y 230
 
-
+#VER TEMA PRINTEO DEL GNOMO 
 #en nivel 3 apenas se mueve se termina el juego
 
 
@@ -78,5 +92,6 @@ no aparezca (si se mató antes).
 - hacer que si está en una escalera tenga que volver a apretar la tecla para cambiar nivel?
 - que imprima mensaje si gana o abandona mision?
 - al comienzo del juego solicitar un nombre.
+- ver que siempre haya camino entre gnomo y pers (en estado inicial, sin contar paredes rotas), lo mismo con escalera que baja
 
 """

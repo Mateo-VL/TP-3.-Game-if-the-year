@@ -39,18 +39,18 @@ def move_up(dungeon: mapping.Dungeon, player: player.Player):
 def move_down(dungeon: mapping.Dungeon, player: player.Player, rows: int):  #recibe cant de filas
     #if dungeon.is_walkable([player.x, player.y+1]) or player.tool==True:
     if player.y< rows -1:    #objeto.valor
-        move_to(dungeon, player,(player.x, player.y +1))
+        move_to(dungeon, player,[player.x, player.y +1])
     #llamar a dig
 
 def move_left(dungeon: mapping.Dungeon, player: player.Player):
     #if dungeon.is_walkable([player.x - 1, player.y]) or player.tool==True:
     if player.x>0:
-        move_to(dungeon, player,(player.x - 1, player.y))
+        move_to(dungeon, player,[player.x - 1, player.y])
 
 def move_right(dungeon: mapping.Dungeon, player: player.Player, columns: int):  #recibe cant de columnas
     #if dungeon.is_walkable([player.x + 1, player.y]) or player.tool==True:
     if player.x< columns -1:
-        move_to(dungeon, player,(player.x + 1, player.y))
+        move_to(dungeon, player,[player.x + 1, player.y])
 
 def climb_stair(dungeon: mapping.Dungeon, player: player.Player):
     # completar
