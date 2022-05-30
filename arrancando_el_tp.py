@@ -76,7 +76,7 @@ no aparezca (si se mató antes).
 - hacer clase Gnome. que esté en cada nivel. hacer que desaparezca si se mata. Que se mueva con random
 - pasar lo de las escaleras a archivo actions
 - hacer que si está en una escalera tenga que volver a apretar la tecla para cambiar nivel?
-
-
+- que imprima mensaje si gana o abandona mision?
+- al comienzo del juego solicitar un nombre.
 
 """
