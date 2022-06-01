@@ -4,30 +4,32 @@ import src.templates.oop.actions as actions
 import src.templates.oop.player as player
 import src.templates.oop.items as items
 import msvcrt
+from typing import List
 
 DUNGEON = mapa.Dungeon(25, 80)   #pedir parametros para ver longitud y ver que no pase limites
 MATEO = human.Human('Mateo', DUNGEON.find_free_tile())
-GNOME= player.Gnome("Gnome", DUNGEON.find_free_tile())
+GNOMES = [player.Gnome('Gnome', DUNGEON.find_free_tile()) for _ in range(len(DUNGEON.dungeon))]
+x = GNOMES[DUNGEON.level].alive
+
 
 SWORD= items.Sword("Sword", "/", 10, 20, DUNGEON.find_free_tile())
 
 AMULET= items.Amulet("Amulet", '"', DUNGEON.dungeon[2].find_free_tile())
 
 PICKAXE= items.PickAxe("Pickaxe", "(", DUNGEON.find_free_tile())
-
 import random
-def gnome_movement():
-    while GNOME.alive== True:
+def gnome_movement(gnomes, dungeon) -> None:
+    while gnomes[dungeon.level].alive == True:
         list_number=[1,2,3,4]
         random_num= random.choice(list_number)
         if random_num==1:
-            actions.move_up(DUNGEON, GNOME)
+            actions.move_up(DUNGEON, gnomes[dungeon.level])
         elif random_num==2:
-            actions.move_left(DUNGEON, GNOME)
+            actions.move_left(DUNGEON, gnomes[dungeon.level])
         elif random_num==3:
-            actions.move_down(DUNGEON, GNOME, rows)
+            actions.move_down(DUNGEON, gnomes[dungeon.level], rows)
         elif random_num==4:
-            actions.move_right(DUNGEON, GNOME, columns)
+            actions.move_right(DUNGEON, gnomes[dungeon.level], columns)
         return
     #return 
 rows= DUNGEON.rows
@@ -37,7 +39,7 @@ DUNGEON.add_item(PICKAXE, 1, PICKAXE.loc())   #ya imprime mapa  #podemos hacer r
 DUNGEON.add_item(SWORD, 1, SWORD.loc())
 DUNGEON.add_item(AMULET, 3, AMULET.loc())
 #DUNGEON.add_item(GNOME, 1, GNOME.loc())
-DUNGEON.render(MATEO, GNOME)
+DUNGEON.render(MATEO, GNOMES[DUNGEON.level])
 while capo and MATEO.alive==True:  #MATEO.alive?
     key = msvcrt.getch()
     if key == b'w':
@@ -60,20 +62,20 @@ while capo and MATEO.alive==True:  #MATEO.alive?
     DUNGEON.get_items(MATEO.loc()) 
     DUNGEON.dig(MATEO.loc())
 
-    if MATEO.loc()== GNOME.loc():
+    if MATEO.loc()== GNOMES[DUNGEON.level].loc():
         if MATEO.has_sword()== True:
-            GNOME.kill()
+            GNOMES[DUNGEON.level].kill()
 
         else:
             MATEO.hp -=1 
 
 
-    
-    stair_down = DUNGEON.dungeon[DUNGEON.level].index(mapa.STAIR_DOWN)
+    if DUNGEON.level < 2:
+        stair_down = DUNGEON.dungeon[DUNGEON.level].index(mapa.STAIR_DOWN)
     stair_up = DUNGEON.dungeon[DUNGEON.level].index(mapa.STAIR_UP)
     if MATEO.loc() == stair_down:
         DUNGEON.level += 1
-        GNOME.loc()== DUNGEON.find_free_tile()  #gnomo aparece en cada nivel 
+        GNOMES[DUNGEON.level].loc()== DUNGEON.find_free_tile()  #gnomo aparece en cada nivel 
         #GNOME.loc()== DUNGEON.level.get_random_location()
     if MATEO.loc() == stair_up:
         if DUNGEON.level == 0:
@@ -87,8 +89,8 @@ while capo and MATEO.alive==True:  #MATEO.alive?
             
         else:
             DUNGEON.level -= 1   
-    gnome_movement()
-    DUNGEON.render(MATEO, GNOME)  #hice cambios en render (level y dungeon) lineas 108 y 230
+    gnome_movement(GNOMES[DUNGEON.level], DUNGEON)
+    DUNGEON.render(MATEO, GNOMES[DUNGEON.level])  #hice cambios en render (level y dungeon) lineas 108 y 230
 
 #VER TEMA PRINTEO DEL GNOMO 
 #en nivel 3 apenas se mueve se termina el juego
