@@ -74,7 +74,7 @@ while capo and MATEO.alive==True:  #MATEO.alive?
     if MATEO.loc() == stair_down:
         DUNGEON.level += 1
         GNOME.loc()== DUNGEON.find_free_tile()  #gnomo aparece en cada nivel 
-    
+        #GNOME.loc()== DUNGEON.level.get_random_location()
     if MATEO.loc() == stair_up:
         if DUNGEON.level == 0:
            
@@ -111,5 +111,5 @@ no aparezca (si se mató antes).
 - que imprima mensaje si gana o abandona mision?
 - al comienzo del juego solicitar un nombre.
 - ver que siempre haya camino entre gnomo y pers (en estado inicial, sin contar paredes rotas), lo mismo con escalera que baja
-
+- solucionar cuando se cambia nivel, gnomo permanece en mismo lugar
 """
