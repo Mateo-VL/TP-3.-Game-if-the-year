@@ -62,7 +62,7 @@ while capo and MATEO.alive==True:  #MATEO.alive?
     DUNGEON.get_items(MATEO.loc()) 
     DUNGEON.dig(MATEO.loc())
 
-    if MATEO.loc()== GNOMES[DUNGEON.level].loc():
+    if MATEO.loc()== GNOMES[DUNGEON.level].loc():   #ver que con 2do gnomo no hay ataque
         if MATEO.has_sword()== True:
             GNOMES[DUNGEON.level].kill()
 
@@ -89,7 +89,7 @@ while capo and MATEO.alive==True:  #MATEO.alive?
             
         else:
             DUNGEON.level -= 1   
-    gnome_movement(GNOMES[DUNGEON.level], DUNGEON)
+    gnome_movement(GNOMES, DUNGEON)
     DUNGEON.render(MATEO, GNOMES[DUNGEON.level])  #hice cambios en render (level y dungeon) lineas 108 y 230
 
 #VER TEMA PRINTEO DEL GNOMO 
