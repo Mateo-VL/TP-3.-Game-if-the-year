@@ -27,7 +27,13 @@ class Gnome(Player):
         #self.x, self.y = xy
         self.alive= True
         self.face = "G"
-        self.tool= False  
+        self.tool= False  #lo agregué
+
+    def kill(self):
+        self.hp = 0
+        self.alive = False
+        self.face= "%"
+
 
     def get_face(self):
         return self.face

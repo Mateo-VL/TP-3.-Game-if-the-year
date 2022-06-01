@@ -3,7 +3,7 @@ from typing import Union, Tuple
 
 import src.templates.oop.mapping as mapping
 import src.templates.oop.player as player 
-
+import src.templates.oop.items as items  #lo importo
 
 numeric = Union[int, float]
 
@@ -62,10 +62,15 @@ def descend_stair(dungeon: mapping.Dungeon, player: player.Player):
     raise NotImplementedError
 
 
-def pickup(dungeon: mapping.Dungeon, player: player.Player):
+def pickup(dungeon: mapping.Dungeon, player: player.Player, pickaxe: items.PickAxe, sword: items.Sword, amulet: items.Amulet):
     # completar
+    if player.loc()== pickaxe.loc():
+        player.tool= True
+    elif player.loc()== sword.loc():
+        player.weapon= True
+    elif player.loc()== amulet.loc():
+        player.treasure= True
     
-    raise NotImplementedError
 
 
 

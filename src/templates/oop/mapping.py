@@ -111,6 +111,9 @@ class Level:
         there are multiple items in one location, only one will be rendered.
         """
         print("-" + "-" * len(self.tiles[0]) + "-")
+        print("  Level:1#ver","    ", "HP:", player.hp,"    ", "Tools:",  "ver\n", "Turns:", "   ", "Gnome HP:", gnome.hp)
+        
+        print("-" + "-" * len(self.tiles[0]) + "-")
         for i, row in enumerate(self.tiles):
             print("|", end="")
             for j, cell in enumerate(row):

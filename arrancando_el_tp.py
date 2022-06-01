@@ -17,26 +17,28 @@ PICKAXE= items.PickAxe("Pickaxe", "(", DUNGEON.find_free_tile())
 
 import random
 def gnome_movement():
-    list_number=[1,2,3,4]
-    random_num= random.choice(list_number)
-    if random_num==1:
-        actions.move_up(DUNGEON, GNOME)
-    elif random_num==2:
-        actions.move_left(DUNGEON, GNOME)
-    elif random_num==3:
-        actions.move_down(DUNGEON, GNOME, rows)
-    elif random_num==4:
-        actions.move_right(DUNGEON, GNOME, columns)
-    return 
+    while GNOME.alive== True:
+        list_number=[1,2,3,4]
+        random_num= random.choice(list_number)
+        if random_num==1:
+            actions.move_up(DUNGEON, GNOME)
+        elif random_num==2:
+            actions.move_left(DUNGEON, GNOME)
+        elif random_num==3:
+            actions.move_down(DUNGEON, GNOME, rows)
+        elif random_num==4:
+            actions.move_right(DUNGEON, GNOME, columns)
+        return
+    #return 
 rows= DUNGEON.rows
 columns= DUNGEON.columns
 capo = True 
 DUNGEON.add_item(PICKAXE, 1, PICKAXE.loc())   #ya imprime mapa  #podemos hacer random
 DUNGEON.add_item(SWORD, 1, SWORD.loc())
 DUNGEON.add_item(AMULET, 3, AMULET.loc())
-DUNGEON.add_item(GNOME, 1, GNOME.loc())
+#DUNGEON.add_item(GNOME, 1, GNOME.loc())
 DUNGEON.render(MATEO, GNOME)
-while capo:  #MATEO.alive?
+while capo and MATEO.alive==True:  #MATEO.alive?
     key = msvcrt.getch()
     if key == b'w':
         actions.move_up(DUNGEON, MATEO)
@@ -49,24 +51,40 @@ while capo:  #MATEO.alive?
     else:
         capo = False
     #ver
-    if MATEO.loc() in DUNGEON.dungeon[DUNGEON.level].items:
-        list_items= DUNGEON.dungeon[DUNGEON.level].items[MATEO.loc()]
-        MATEO.take_object(list_items)
+    #if MATEO.loc() in DUNGEON.dungeon[DUNGEON.level].items:
+        #list_items= DUNGEON.dungeon[DUNGEON.level].items[MATEO.loc()]
+        #MATEO.take_object(list_items)
     
-    if MATEO.loc()== PICKAXE.loc():
-        MATEO.tool= True
-    DUNGEON.add_item(GNOME, 1, GNOME.loc())
+    actions.pickup(DUNGEON, MATEO, PICKAXE, SWORD, AMULET)
+    #DUNGEON.add_item(GNOME, 1, GNOME.loc())
     DUNGEON.get_items(MATEO.loc()) 
     DUNGEON.dig(MATEO.loc())
+
+    if MATEO.loc()== GNOME.loc():
+        if MATEO.has_sword()== True:
+            GNOME.kill()
+
+        else:
+            MATEO.hp -=1 
+
+
     
     stair_down = DUNGEON.dungeon[DUNGEON.level].index(mapa.STAIR_DOWN)
     stair_up = DUNGEON.dungeon[DUNGEON.level].index(mapa.STAIR_UP)
     if MATEO.loc() == stair_down:
         DUNGEON.level += 1
+        GNOME.loc()== DUNGEON.find_free_tile()  #gnomo aparece en cada nivel 
     
     if MATEO.loc() == stair_up:
         if DUNGEON.level == 0:
+           
+            if MATEO.treasure== True:
+                print("Congratulations! You accomplished with the mision.")
+            else:
+                print("The game ended. You abandoned the mission")
             capo = False
+
+            
         else:
             DUNGEON.level -= 1   
     gnome_movement()
