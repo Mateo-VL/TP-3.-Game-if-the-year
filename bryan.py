@@ -26,6 +26,7 @@ PICKAXE= items.PickAxe("Pickaxe", "(", DUNGEON.find_free_tile())
 
 rows= DUNGEON.rows
 columns= DUNGEON.columns
+
 def insameplace(player, gnome):
 
     if player.loc()== gnome.loc():   #ver que con 2do gnomo no hay ataque
@@ -77,7 +78,7 @@ if __name__ == "__main__":
         actions.pickup(DUNGEON, PLAYER, PICKAXE, SWORD, AMULET)
     #DUNGEON.add_item(GNOME, 1, GNOME.loc())
         DUNGEON.get_items(PLAYER.loc()) 
-        DUNGEON.dig(PLAYER.loc())
+        #DUNGEON.dig(PLAYER.loc())
         
     
         if DUNGEON.level < 2:

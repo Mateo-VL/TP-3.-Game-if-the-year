@@ -69,7 +69,7 @@ if __name__ == "__main__":
         actions.pickup(DUNGEON, PLAYER, PICKAXE, SWORD, AMULET)
     #DUNGEON.add_item(GNOME, 1, GNOME.loc())
         DUNGEON.get_items(PLAYER.loc()) 
-        DUNGEON.dig(PLAYER.loc())
+        #DUNGEON.dig(PLAYER.loc())
         
     
     if DUNGEON.level < 2:

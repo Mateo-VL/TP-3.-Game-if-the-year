@@ -79,6 +79,7 @@ def pickup(dungeon: mapping.Dungeon, player: player.Player, pickaxe: items.PickA
         player.weapon= True
     elif player.loc()== amulet.loc():
         player.treasure= True
+    return
     
 
 

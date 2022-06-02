@@ -1,6 +1,6 @@
 from __future__ import annotations
 from typing import List
-import src.templates.oop.mapping as mapa
+#import src.templates.oop.mapping as mapa
 #import src.templates.oop.actions as actions
 
 class Player:
