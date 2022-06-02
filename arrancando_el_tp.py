@@ -28,9 +28,9 @@ def gnome_movement(gnomes, dungeon) -> None:
         elif random_num==2:
             actions.move_left(DUNGEON, gnomes[dungeon.level])
         elif random_num==3:
-            actions.move_down(DUNGEON, gnomes[dungeon.level], rows)
+            actions.move_down(DUNGEON, gnomes[dungeon.level])
         elif random_num==4:
-            actions.move_right(DUNGEON, gnomes[dungeon.level], columns)
+            actions.move_right(DUNGEON, gnomes[dungeon.level])
         return
     #return 
 rows= DUNGEON.rows
@@ -48,9 +48,9 @@ while capo and MATEO.alive==True:  #MATEO.alive?
     elif key == b'a':
         actions.move_left(DUNGEON, MATEO)
     elif key == b's':
-        actions.move_down(DUNGEON, MATEO, rows)  #recibe cant filas
+        actions.move_down(DUNGEON, MATEO)  #recibe cant filas
     elif key == b'd':
-        actions.move_right(DUNGEON, MATEO, columns)  #recibe cant columnas
+        actions.move_right(DUNGEON, MATEO)  #recibe cant columnas
     else:
         capo = False
     #ver
@@ -61,8 +61,8 @@ while capo and MATEO.alive==True:  #MATEO.alive?
     actions.pickup(DUNGEON, MATEO, PICKAXE, SWORD, AMULET)
     #DUNGEON.add_item(GNOME, 1, GNOME.loc())
     DUNGEON.get_items(MATEO.loc()) 
-    DUNGEON.dig(MATEO.loc())
-
+    #DUNGEON.dig(MATEO.loc())
+   
     if MATEO.loc()== GNOMES[DUNGEON.level].loc():   #ver que con 2do gnomo no hay ataque
         if MATEO.has_sword()== True:
             GNOMES[DUNGEON.level].kill()
@@ -70,6 +70,13 @@ while capo and MATEO.alive==True:  #MATEO.alive?
         else:
             MATEO.hp -=1 
 
+    gnome_movement(GNOMES, DUNGEON)
+    if MATEO.loc()== GNOMES[DUNGEON.level].loc():   #ver que con 2do gnomo no hay ataque
+        if MATEO.has_sword()== True:
+            GNOMES[DUNGEON.level].kill()
+
+        else:
+            MATEO.hp -=1 
 
     if DUNGEON.level < 2:
         stair_down = DUNGEON.dungeon[DUNGEON.level].index(mapa.STAIR_DOWN)
@@ -90,7 +97,7 @@ while capo and MATEO.alive==True:  #MATEO.alive?
             
         else:
             DUNGEON.level -= 1   
-    gnome_movement(GNOMES, DUNGEON)
+    
     DUNGEON.render(MATEO, GNOMES[DUNGEON.level])  #hice cambios en render (level y dungeon) lineas 108 y 230
 
 #VER TEMA PRINTEO DEL GNOMO 
@@ -115,4 +122,5 @@ no aparezca (si se mató antes).
 - al comienzo del juego solicitar un nombre.
 - ver que siempre haya camino entre gnomo y pers (en estado inicial, sin contar paredes rotas), lo mismo con escalera que baja
 - solucionar cuando se cambia nivel, gnomo permanece en mismo lugar
+from sys import platform
 """
