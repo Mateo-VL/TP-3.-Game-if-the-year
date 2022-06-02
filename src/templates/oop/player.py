@@ -1,3 +1,8 @@
+from __future__ import annotations
+from typing import List
+import src.templates.oop.mapping as mapa
+
+
 class Player:
     def __init__(self, name, xy, hit_points=50):
         self.name = name
@@ -37,6 +42,22 @@ class Gnome(Player):
 
     def get_face(self):
         return self.face
+
+
+
+    def gnome_movement(gnomes : List[Gnome], dungeon: mapa.Dungeon) -> None:
+        while gnomes[dungeon.level].alive == True:
+            list_number=[1,2,3,4]
+            random_num= random.choice(list_number)
+            if random_num==1:
+                actions.move_up(dungeon, gnomes[dungeon.level])
+            elif random_num==2:
+                actions.move_left(dungeon, gnomes[dungeon.level])
+            elif random_num==3:
+                actions.move_down(dungeon, gnomes[dungeon.level], rows)
+            elif random_num==4:
+                actions.move_right(dungeon, gnomes[dungeon.level], columns)
+            return
 """
 def gnome_movement():
     list_number=[1,2,3,4]

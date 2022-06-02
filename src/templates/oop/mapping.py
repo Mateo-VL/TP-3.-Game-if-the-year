@@ -174,7 +174,7 @@ class Level:
 
     def is_free(self, xy: Location) -> bool:
         """Check if a given location is free of other entities."""
-        # completar   ver si no hay gnomo?
+        # completar   
         #if self.is_walkable(xy) ==True:
             #return True
         #else:
@@ -275,3 +275,9 @@ class Dungeon:
     def is_free(self, xy: Location) -> bool:
         """NOT IMPLEMENTED. Check if a given location is free of other entities. See Level.is_free()."""
         return self.dungeon[self.level].is_free(xy)
+    
+    def get_columns(self) -> int:
+        return self.columns
+    
+    def get_rows(self) -> int:
+        return self.rows

@@ -6,6 +6,7 @@ import src.templates.oop.items as items
 import msvcrt
 from typing import List
 
+
 DUNGEON = mapa.Dungeon(25, 80)   #pedir parametros para ver longitud y ver que no pase limites
 MATEO = human.Human('Mateo', DUNGEON.find_free_tile())
 GNOMES = [player.Gnome('Gnome', DUNGEON.find_free_tile()) for _ in range(len(DUNGEON.dungeon))]
