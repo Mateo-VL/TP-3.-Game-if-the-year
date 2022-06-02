@@ -28,9 +28,9 @@ def gnome_movement(gnomes, dungeon) -> None:
         elif random_num==2:
             actions.move_left(DUNGEON, gnomes[dungeon.level])
         elif random_num==3:
-            actions.move_down(DUNGEON, gnomes[dungeon.level], rows)
+            actions.move_down(DUNGEON, gnomes[dungeon.level])
         elif random_num==4:
-            actions.move_right(DUNGEON, gnomes[dungeon.level], columns)
+            actions.move_right(DUNGEON, gnomes[dungeon.level])
         return
     #return 
 rows= DUNGEON.rows
@@ -48,9 +48,9 @@ while capo and MATEO.alive==True:  #MATEO.alive?
     elif key == b'a':
         actions.move_left(DUNGEON, MATEO)
     elif key == b's':
-        actions.move_down(DUNGEON, MATEO, rows)  #recibe cant filas
+        actions.move_down(DUNGEON, MATEO)  #recibe cant filas
     elif key == b'd':
-        actions.move_right(DUNGEON, MATEO, columns)  #recibe cant columnas
+        actions.move_right(DUNGEON, MATEO)  #recibe cant columnas
     else:
         capo = False
     #ver
@@ -91,6 +91,7 @@ while capo and MATEO.alive==True:  #MATEO.alive?
         else:
             DUNGEON.level -= 1   
     gnome_movement(GNOMES, DUNGEON)
+    print(DUNGEON.dungeon[DUNGEON.level].are_connected(DUNGEON.dungeon[DUNGEON.level],stair_down, stair_up))
     DUNGEON.render(MATEO, GNOMES[DUNGEON.level])  #hice cambios en render (level y dungeon) lineas 108 y 230
 
 #VER TEMA PRINTEO DEL GNOMO 

@@ -14,22 +14,13 @@ def clip(value: numeric, minimum: numeric, maximum: numeric) -> numeric:
     if value > maximum:
         return maximum
     return value
-if key == b'w':
-        actions.move_up(DUNGEON, MATEO)
-    elif key == b'a':
-        actions.move_left(DUNGEON, MATEO)
-    elif key == b's':
-        actions.move_down(DUNGEON, MATEO, rows)  #recibe cant filas
-    elif key == b'd':
-        actions.move_right(DUNGEON, MATEO, columns)  #recibe cant columnas
-
 
 #def attack(dungeon, player, ...): # completar
     # completar
    # raise NotImplementedError
 
 #locacion= [player.x, player.y]
-def move_to(dungeon: mapping.Dungeon, player: player.Player, location: Tuple[numeric, numeric], key:):
+def move_to(dungeon: mapping.Dungeon, player: player.Player, location: Tuple[numeric, numeric]):
     # completar
     if dungeon.is_walkable(location):
         player.move_to(location)
