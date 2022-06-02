@@ -1,4 +1,8 @@
-from typing import List, Tuple
+from typing import List, Tuple, Set
+from copy import copy
+import random
+Location = Tuple[int, int]
+
 def are_connected(level: List[List[int]], from_point: Tuple[int, int], to_point: Tuple[int, int]) -> bool:
     return search_path(level, from_point, to_point, set())
 
@@ -49,5 +53,6 @@ def is_available(visited: Set, level: List[List[int]], point: Location) -> bool:
     
     if level[point[0]][point[1]] == 1:
         return False
-        
+
     return True
+
