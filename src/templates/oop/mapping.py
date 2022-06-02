@@ -2,8 +2,8 @@ import random
 from typing import Optional
 from typing import List, Tuple
 
-import src.templates.oop.player as player
-import src.templates.oop.items as items
+import player
+import items
 
 
 Location = Tuple[int, int]

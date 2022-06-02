@@ -64,12 +64,12 @@ if __name__ == "__main__":
 
         list_letters=["w", "a", "s", "d"]
         gnome_movement= random.choice(list_letters)
-        movements(GNOMES[DUNGEON.level], DUNGEON, gnome_movement)
-        insameplace(PLAYER, GNOMES[DUNGEON.level])
+       # movements(GNOMES[DUNGEON.level], DUNGEON, gnome_movement)
+        #insameplace(PLAYER, GNOMES[DUNGEON.level])
         actions.pickup(DUNGEON, PLAYER, PICKAXE, SWORD, AMULET)
     #DUNGEON.add_item(GNOME, 1, GNOME.loc())
         DUNGEON.get_items(PLAYER.loc()) 
-        #DUNGEON.dig(PLAYER.loc())
+        DUNGEON.dig(PLAYER.loc())
         
     
     if DUNGEON.level < 2:
@@ -94,10 +94,38 @@ if __name__ == "__main__":
             
         else:
             DUNGEON.level -= 1   
-    
+    movements(GNOMES[DUNGEON.level], DUNGEON, gnome_movement)
     DUNGEON.render(PLAYER, GNOMES[DUNGEON.level])
 
-        
+######
+
+
+
+
+   
+""""
+    if DUNGEON.level < 2:
+        stair_down = DUNGEON.dungeon[DUNGEON.level].index(mapa.STAIR_DOWN)
+    stair_up = DUNGEON.dungeon[DUNGEON.level].index(mapa.STAIR_UP)
+    if MATEO.loc() == stair_down:
+        DUNGEON.level += 1
+        GNOMES[DUNGEON.level].loc()== DUNGEON.find_free_tile()  #gnomo aparece en cada nivel 
+        #GNOME.loc()== DUNGEON.level.get_random_location()
+    if MATEO.loc() == stair_up:
+        if DUNGEON.level == 0:
+           
+            if MATEO.treasure== True:
+                print("Congratulations! You accomplished with the mision.")
+            else:
+                print("The game ended. You abandoned the mission")
+            capo = False
+
+            
+        else:
+            DUNGEON.level -= 1   
+    gnome_movement(GNOMES, DUNGEON)
+    DUNGEON.render(MATEO, GNOMES[DUNGEON.level])  #hice cambios en render (level y dungeon) lineas 108 y 230
+
     # initial parameters
     #level = 0
     
@@ -122,5 +150,5 @@ if __name__ == "__main__":
 
     # Salió del loop principal, termina el juego
 
-
+"""
    
