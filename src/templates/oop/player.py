@@ -1,7 +1,7 @@
 from __future__ import annotations
 from typing import List
 import src.templates.oop.mapping as mapa
-
+import src.templates.oop.actions as actions
 
 class Player:
     def __init__(self, name, xy, hit_points=50):
@@ -21,7 +21,20 @@ class Player:
 
     def __repr__(self):
         return f"Player('{self.name}', '{self.loc}', '{self.hp}')"
-
+    
+    def movements(character, dungeon: mapa.Dungeon, letter: str) -> None:
+        #while character[dungeon.level].alive == True:
+            #list_number=[1,2,3,4]
+            #random_num= random.choice(list_number)
+            if letter == "w":
+                 actions.move_up(dungeon, character)
+            elif letter == "a":
+                 actions.move_left(dungeon, character)
+            elif letter == "s":
+                 actions.move_down(dungeon, character)
+            elif letter == "d":
+                 actions.move_right(dungeon, character)
+        
 #ver q pico este en ubicacion alcanzable. disponible desde nivel 1?
 import random 
 

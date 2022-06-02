@@ -1,4 +1,5 @@
-def are_connected(level: List[List[int]], from_point: Tuple[int, int], to_point: Tuple[int, int]) -> bool
+from typing import List, Tuple
+def are_connected(level: List[List[int]], from_point: Tuple[int, int], to_point: Tuple[int, int]) -> bool:
     return search_path(level, from_point, to_point, set())
 
 def search_path(

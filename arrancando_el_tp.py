@@ -1,3 +1,4 @@
+from pickle import STACK_GLOBAL
 import src.templates.oop.mapping as mapa
 import src.templates.oop.human as human
 import src.templates.oop.actions as actions
@@ -5,7 +6,7 @@ import src.templates.oop.player as player
 import src.templates.oop.items as items
 import msvcrt
 from typing import List
-
+#import funcion_busqueda
 
 DUNGEON = mapa.Dungeon(25, 80)   #pedir parametros para ver longitud y ver que no pase limites
 MATEO = human.Human('Mateo', DUNGEON.find_free_tile())
@@ -28,9 +29,9 @@ def gnome_movement(gnomes, dungeon) -> None:
         elif random_num==2:
             actions.move_left(DUNGEON, gnomes[dungeon.level])
         elif random_num==3:
-            actions.move_down(DUNGEON, gnomes[dungeon.level], rows)
+            actions.move_down(DUNGEON, gnomes[dungeon.level])
         elif random_num==4:
-            actions.move_right(DUNGEON, gnomes[dungeon.level], columns)
+            actions.move_right(DUNGEON, gnomes[dungeon.level])
         return
     #return 
 rows= DUNGEON.rows
@@ -48,34 +49,48 @@ while capo and MATEO.alive==True:  #MATEO.alive?
     elif key == b'a':
         actions.move_left(DUNGEON, MATEO)
     elif key == b's':
-        actions.move_down(DUNGEON, MATEO, rows)  #recibe cant filas
+        actions.move_down(DUNGEON, MATEO)  #recibe cant filas
     elif key == b'd':
-        actions.move_right(DUNGEON, MATEO, columns)  #recibe cant columnas
+        actions.move_right(DUNGEON, MATEO)  #recibe cant columnas
     else:
         capo = False
+    #gnome_movement(GNOMES, DUNGEON)
+    actions.pickup(DUNGEON, MATEO, PICKAXE, SWORD, AMULET)
+    #DUNGEON.add_item(GNOME, 1, GNOME.loc())
+    DUNGEON.get_items(MATEO.loc()) 
+    DUNGEON.dig(MATEO.loc())
+    if MATEO.loc()== GNOMES[DUNGEON.level].loc():   #ver que con 2do gnomo no hay ataque
+        if MATEO.has_sword()== True:
+            #actions.attack()
+            GNOMES[DUNGEON.level].kill()
+        else:
+            MATEO.hp -=1 
+    
+    gnome_movement(GNOMES, DUNGEON)
+    if MATEO.loc()== GNOMES[DUNGEON.level].loc():   #ver que con 2do gnomo no hay ataque
+        if MATEO.has_sword()== True:
+            #actions.attack()
+            GNOMES[DUNGEON.level].kill()
+        else:
+            MATEO.hp -=1 
     #ver
     #if MATEO.loc() in DUNGEON.dungeon[DUNGEON.level].items:
         #list_items= DUNGEON.dungeon[DUNGEON.level].items[MATEO.loc()]
         #MATEO.take_object(list_items)
     
-    actions.pickup(DUNGEON, MATEO, PICKAXE, SWORD, AMULET)
-    #DUNGEON.add_item(GNOME, 1, GNOME.loc())
-    DUNGEON.get_items(MATEO.loc()) 
-    DUNGEON.dig(MATEO.loc())
+   
 
-    if MATEO.loc()== GNOMES[DUNGEON.level].loc():   #ver que con 2do gnomo no hay ataque
-        if MATEO.has_sword()== True:
-            GNOMES[DUNGEON.level].kill()
-
-        else:
-            MATEO.hp -=1 
+    
 
 
     if DUNGEON.level < 2:
         stair_down = DUNGEON.dungeon[DUNGEON.level].index(mapa.STAIR_DOWN)
     stair_up = DUNGEON.dungeon[DUNGEON.level].index(mapa.STAIR_UP)
-    if MATEO.loc() == stair_down:
+    #if MATEO.loc() == DUNGEON.dungeon[DUNGEON.level].index(stair_down):
+    
+    if MATEO.loc()== stair_down:
         DUNGEON.level += 1
+        #MATEO.loc()== 
         GNOMES[DUNGEON.level].loc()== DUNGEON.find_free_tile()  #gnomo aparece en cada nivel 
         #GNOME.loc()== DUNGEON.level.get_random_location()
     if MATEO.loc() == stair_up:
@@ -90,7 +105,7 @@ while capo and MATEO.alive==True:  #MATEO.alive?
             
         else:
             DUNGEON.level -= 1   
-    gnome_movement(GNOMES, DUNGEON)
+    
     DUNGEON.render(MATEO, GNOMES[DUNGEON.level])  #hice cambios en render (level y dungeon) lineas 108 y 230
 
 #VER TEMA PRINTEO DEL GNOMO 
