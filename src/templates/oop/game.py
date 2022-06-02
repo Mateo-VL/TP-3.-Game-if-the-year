@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 
 from regex import P
-import src.templates.oop.mapping as mapa
-import src.templates.oop.human as human
-import src.templates.oop.actions as actions
-import src.templates.oop.player as player
-import src.templates.oop.items as items         #cambiar los imports para entrega final
+import mapping
+import human
+import actions
+import player
+import items         #cambiar los imports para entrega final
 import msvcrt
 from typing import List
 import random
@@ -16,7 +16,7 @@ import random
 
 ROWS = 25
 COLUMNS = 80
-DUNGEON = mapa.Dungeon(ROWS, COLUMNS)   #pedir parametros para ver longitud y ver que no pase limites
+DUNGEON = mapping.Dungeon(ROWS, COLUMNS)   #pedir parametros para ver longitud y ver que no pase limites
 PLAYER = human.Human('Mateo', DUNGEON.find_free_tile())
 GNOMES = [player.Gnome('Gnome', DUNGEON.find_free_tile()) for _ in range(len(DUNGEON.dungeon))]
 
@@ -34,7 +34,7 @@ def insameplace(player, gnome):
                 gnome.kill()
             else:
                 player.hp -=1 
-def movements(character, dungeon: mapa.Dungeon, letter: str) -> None:
+def movements(character, dungeon: mapping.Dungeon, letter: str) -> None:
         #while character[dungeon.level].alive == True:
             #list_number=[1,2,3,4]
             #random_num= random.choice(list_number)
@@ -73,8 +73,8 @@ if __name__ == "__main__":
         
     
     if DUNGEON.level < 2:
-        stair_down = DUNGEON.dungeon[DUNGEON.level].index(mapa.STAIR_DOWN)
-    stair_up = DUNGEON.dungeon[DUNGEON.level].index(mapa.STAIR_UP)
+        stair_down = DUNGEON.dungeon[DUNGEON.level].index(mapping.STAIR_DOWN)
+    stair_up = DUNGEON.dungeon[DUNGEON.level].index(mapping.STAIR_UP)
     #if MATEO.loc() == DUNGEON.dungeon[DUNGEON.level].index(stair_down):
     
     if PLAYER.loc()== stair_down:

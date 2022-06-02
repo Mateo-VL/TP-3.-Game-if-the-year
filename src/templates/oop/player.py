@@ -1,7 +1,7 @@
 from __future__ import annotations
 from typing import List
 import src.templates.oop.mapping as mapa
-import src.templates.oop.actions as actions
+#import src.templates.oop.actions as actions
 
 class Player:
     def __init__(self, name, xy, hit_points=50):
@@ -57,7 +57,7 @@ class Gnome(Player):
         return self.face
 
 
-
+""""
     def gnome_movement(gnomes : List[Gnome], dungeon: mapa.Dungeon) -> None:
         while gnomes[dungeon.level].alive == True:
             list_number=[1,2,3,4]
@@ -71,7 +71,7 @@ class Gnome(Player):
             elif random_num==4:
                 actions.move_right(dungeon, gnomes[dungeon.level], columns)
             return
-"""
+
 def gnome_movement():
     list_number=[1,2,3,4]
     random_num= random.choice(list_number)
