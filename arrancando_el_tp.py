@@ -97,7 +97,6 @@ while capo and MATEO.alive==True:  #MATEO.alive?
             
         else:
             DUNGEON.level -= 1   
-    
     DUNGEON.render(MATEO, GNOMES[DUNGEON.level], DUNGEON.level)  #hice cambios en render (level y dungeon) lineas 108 y 230
 
 #VER TEMA PRINTEO DEL GNOMO 
