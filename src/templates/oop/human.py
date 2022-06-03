@@ -1,8 +1,9 @@
 import random
-from src.templates.oop.items import Item
-from src.templates.oop.player import Player
-from typing import List
+from items import Item
+from player import Player
+from typing import List, Tuple
 
+Location = Tuple[int, int]
 
 class Human(Player):
     def __init__(self, name: str, xy):
@@ -24,8 +25,6 @@ class Human(Player):
                 self.treasure= True
             elif i.type== "tool":
                 self.tool= True
-           
-
 
     def damage(self):
         if self.sword:
@@ -35,6 +34,9 @@ class Human(Player):
     def kill(self):  #si gnomo= lugar que jugador (y no tienes espada) hp -1.  if hp==0: player.kill
         self.hp = 0
         self.alive = False
+    
+    def set_location(self, xy: Location):
+        self.x, self.y = xy
         
 
     def has_sword(self):

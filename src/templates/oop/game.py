@@ -1,13 +1,9 @@
-#!/usr/bin/env python3
-
-from regex import P
 import mapping
 import human
 import actions
 import player
 import items         #cambiar los imports para entrega final
 import msvcrt
-from typing import List
 import random
 #from src.templates.oop.human import Human
 #from src.templates.oop.items import Item
@@ -38,13 +34,13 @@ def movements(character, dungeon: mapping.Dungeon, letter: str) -> None:
         #while character[dungeon.level].alive == True:
             #list_number=[1,2,3,4]
             #random_num= random.choice(list_number)
-            if letter == "w":
+            if letter == b"w":
                  actions.move_up(dungeon, character)
-            elif letter == "a":
+            elif letter == b"a":
                  actions.move_left(dungeon, character)
-            elif letter == "s":
+            elif letter == b"s":
                  actions.move_down(dungeon, character)
-            elif letter == "d":
+            elif letter == b"d":
                  actions.move_right(dungeon, character)
 if __name__ == "__main__":
    
@@ -59,10 +55,14 @@ if __name__ == "__main__":
         turns +=1
         key = msvcrt.getch()
         letter= key
+        
+        if letter == b'e':
+            game = False
+        
         movements(PLAYER, DUNGEON, letter)
         insameplace(PLAYER, GNOMES[DUNGEON.level])
 
-        list_letters=["w", "a", "s", "d"]
+        list_letters=[b"w", b"a", b"s", b"d"]
         gnome_movement= random.choice(list_letters)
        # movements(GNOMES[DUNGEON.level], DUNGEON, gnome_movement)
         #insameplace(PLAYER, GNOMES[DUNGEON.level])
@@ -70,32 +70,33 @@ if __name__ == "__main__":
     #DUNGEON.add_item(GNOME, 1, GNOME.loc())
         DUNGEON.get_items(PLAYER.loc()) 
         DUNGEON.dig(PLAYER.loc())
-        
-    
-    if DUNGEON.level < 2:
-        stair_down = DUNGEON.dungeon[DUNGEON.level].index(mapping.STAIR_DOWN)
-    stair_up = DUNGEON.dungeon[DUNGEON.level].index(mapping.STAIR_UP)
-    #if MATEO.loc() == DUNGEON.dungeon[DUNGEON.level].index(stair_down):
-    
-    if PLAYER.loc()== stair_down:
-        DUNGEON.level += 1
-        #MATEO.loc()== 
-        GNOMES[DUNGEON.level].loc()== DUNGEON.find_free_tile()  #gnomo aparece en cada nivel 
-        #GNOME.loc()== DUNGEON.level.get_random_location()
-    if PLAYER.loc() == stair_up:
-        if DUNGEON.level == 0:
-           
-            if PLAYER.treasure== True:
-                print("Congratulations! You accomplished with the mision.")
-            else:
-                print("The game ended. You abandoned the mission")
-            capo = False
 
-            
-        else:
-            DUNGEON.level -= 1   
-    movements(GNOMES[DUNGEON.level], DUNGEON, gnome_movement)
-    DUNGEON.render(PLAYER, GNOMES[DUNGEON.level])
+        if DUNGEON.level < 2:
+            stair_down = DUNGEON.dungeon[DUNGEON.level].index(mapping.STAIR_DOWN)
+        stair_up = DUNGEON.dungeon[DUNGEON.level].index(mapping.STAIR_UP)
+        #if MATEO.loc() == DUNGEON.dungeon[DUNGEON.level].index(stair_down):
+        
+        if PLAYER.loc()== stair_down:
+            DUNGEON.level += 1
+            GNOMES[DUNGEON.level].loc()== DUNGEON.find_free_tile()  #gnomo aparece en cada nivel 
+            PLAYER.set_location(DUNGEON.dungeon[DUNGEON.level].index(mapping.STAIR_UP))
+        
+        if PLAYER.loc() == stair_up:
+            if DUNGEON.level == 0:
+                if PLAYER.treasure== True:
+                    print("Congratulations! You accomplished with the mision.")
+                
+                else:
+                    print("The game ended. You abandoned the mission")
+                
+                game = False 
+                               
+            else:
+                DUNGEON.level -= 1
+                PLAYER.set_location(DUNGEON.dungeon[DUNGEON.level].index(mapping.STAIR_DOWN))
+                
+        movements(GNOMES[DUNGEON.level], DUNGEON, gnome_movement)
+        DUNGEON.render(PLAYER, GNOMES[DUNGEON.level])
 
 ######
 

@@ -1,8 +1,8 @@
 from typing import Union, Tuple
 
-import src.templates.oop.mapping as mapping
-import src.templates.oop.player as player 
-import src.templates.oop.items as items  #lo importo
+import mapping
+import player 
+import items  #lo importo
 import msvcrt
 
 numeric = Union[int, float]
