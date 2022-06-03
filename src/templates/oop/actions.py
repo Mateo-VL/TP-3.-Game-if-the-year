@@ -15,16 +15,6 @@ def clip(value: numeric, minimum: numeric, maximum: numeric) -> numeric:
         return maximum
     return value
 
-#if key == b'w':
-     #   actions.move_up(DUNGEON, MATEO)
-    #elif key == b'a':
-     #   actions.move_left(DUNGEON, MATEO)
-   # elif key == b's':
-    #    actions.move_down(DUNGEON, MATEO, rows)  #recibe cant filas
-    #elif key == b'd':
-        #actions.move_right(DUNGEON, MATEO, columns)  #recibe cant columnas
-
-
 #def attack(dungeon, player, ...): # completar
     # completar
    # raise NotImplementedError
