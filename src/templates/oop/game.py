@@ -44,7 +44,7 @@ if __name__ == "__main__":
     DUNGEON.add_item(PICKAXE, 1, PICKAXE.loc())   #ya imprime mapa  #podemos hacer random
     DUNGEON.add_item(SWORD, 1, SWORD.loc())
     DUNGEON.add_item(AMULET, 3, AMULET.loc())
-    DUNGEON.render(PLAYER, GNOMES[DUNGEON.level])
+    DUNGEON.render(PLAYER, GNOMES[DUNGEON.level], DUNGEON.level)
 
     turns=0
     while game and PLAYER.alive==True:
@@ -93,7 +93,7 @@ if __name__ == "__main__":
                 PLAYER.set_location(DUNGEON.dungeon[DUNGEON.level].index(mapping.STAIR_DOWN))
                 
        
-        DUNGEON.render(PLAYER, GNOMES[DUNGEON.level])
+        DUNGEON.render(PLAYER, GNOMES[DUNGEON.level], DUNGEON.level)
 
 ######
 

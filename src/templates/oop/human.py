@@ -17,6 +17,9 @@ class Human(Player):
     def get_face(self):
         return self.face
 
+   
+
+
     def take_object(self, list_items: List [Item]):
         for i in list_items:
             if i.type == "weapon":
