@@ -128,8 +128,7 @@ class Level:
             print("|")
         print("-" + "-" * len(self.tiles[0]) + "-")
 
-    def is_walkable(self, location: Location):
-        """Check if a player can walk through a given location."""
+    def is_walkable(self, location: Location) -> bool:
         j, i = location
         return self.tiles[i % self.rows][j % self.columns].walkable
 

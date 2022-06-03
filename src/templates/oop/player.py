@@ -1,5 +1,5 @@
 from __future__ import annotations
-
+import random
 
 class Player:
     def __init__(self, name, xy, hit_points=50):
@@ -20,60 +20,37 @@ class Player:
     def __repr__(self):
         return f"Player('{self.name}', '{self.loc}', '{self.hp}')"
     
-    #def movements(character, dungeon: mapa.Dungeon, letter: str) -> None:
-        #while character[dungeon.level].alive == True:
-            #list_number=[1,2,3,4]
-            #random_num= random.choice(list_number)
-            #if letter == "w":
-                # actions.move_up(dungeon, character)
-           # elif letter == "a":
-           #      actions.move_left(dungeon, character)
-           # elif letter == "s":
-          #       actions.move_down(dungeon, character)
-          #  elif letter == "d":
-           #      actions.move_right(dungeon, character)
-        
-#ver q pico este en ubicacion alcanzable. disponible desde nivel 1?
-import random 
+    def kill(self):
+        self.hp = 0
+        self.alive = False
+    
+    def get_state(self):
+        return self.alive
+    
+    def take_damage(self, damage: float) -> None:
+        self.hp -= damage
+        if self.hp <= 0:
+            self.kill()
+    
 
 class Gnome(Player):
     def __init__(self, name,  xy):
-        super().__init__(name, xy, 1)
-        #self.name= name
-        #self.x, self.y = xy
+        super().__init__(name, xy, 50)
         self.alive= True
         self.face = "G"
         self.tool= False  #lo agregué
 
+    def damage(self):
+        if self.alive:
+            return random.random() * 10 + 1
+        return 0
+    
     def kill(self):
-        self.hp = 0
-        self.alive = False
-        self.face= "%"
-
+        super().kill()
+        self.face = "%"
 
     def get_face(self):
         return self.face
+    
+    
 
-
-""""
-    def gnome_movement(gnomes : List[Gnome], dungeon: mapa.Dungeon) -> None:
-        while gnomes[dungeon.level].alive == True:
-            list_number=[1,2,3,4]
-            random_num= random.choice(list_number)
-            if random_num==1:
-                actions.move_up(dungeon, gnomes[dungeon.level])
-            elif random_num==2:
-                actions.move_left(dungeon, gnomes[dungeon.level])
-            elif random_num==3:
-                actions.move_down(dungeon, gnomes[dungeon.level], rows)
-            elif random_num==4:
-                actions.move_right(dungeon, gnomes[dungeon.level], columns)
-            return
-
-def gnome_movement():
-    list_number=[1,2,3,4]
-    random_num= random.choice(list_number)
-    if random_num==1:
-        actions.
-
-"""

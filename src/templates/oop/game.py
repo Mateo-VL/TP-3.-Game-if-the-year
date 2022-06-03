@@ -13,7 +13,7 @@ import random
 ROWS = 25
 COLUMNS = 80
 DUNGEON = mapping.Dungeon(ROWS, COLUMNS)   #pedir parametros para ver longitud y ver que no pase limites
-PLAYER = human.Human('Mateo', DUNGEON.find_free_tile())
+PLAYER = human.Human('Mateo', DUNGEON.dungeon[DUNGEON.level].index(mapping.STAIR_UP))
 GNOMES = [player.Gnome('Gnome', DUNGEON.find_free_tile()) for _ in range(len(DUNGEON.dungeon))]
 
 SWORD= items.Sword("Sword", "/", 10, 20, DUNGEON.find_free_tile())
@@ -22,18 +22,14 @@ PICKAXE= items.PickAxe("Pickaxe", "(", DUNGEON.find_free_tile())
 
 rows= DUNGEON.rows
 columns= DUNGEON.columns
-def insameplace(player, gnome):
+def in_same_place(player: human.Human, gnome: player.Gnome) -> bool:
+    if player.loc()== gnome.loc(): 
+            damage = player.damage()
+            gnome.take_damage(damage)
+            player.take_damage(gnome.damage())
 
-    if player.loc()== gnome.loc():   #ver que con 2do gnomo no hay ataque
-            if player.has_sword()== True:
-            #actions.attack()
-                gnome.kill()
-            else:
-                player.hp -=1 
-def movements(character, dungeon: mapping.Dungeon, letter: str) -> None:
-        #while character[dungeon.level].alive == True:
-            #list_number=[1,2,3,4]
-            #random_num= random.choice(list_number)
+def movements(character: player.Player, dungeon: mapping.Dungeon, letter: str) -> None:
+    if character.get_state()== True:
             if letter == b"w":
                  actions.move_up(dungeon, character)
             elif letter == b"a":
@@ -51,7 +47,7 @@ if __name__ == "__main__":
     DUNGEON.render(PLAYER, GNOMES[DUNGEON.level])
 
     turns=0
-    while game and PLAYER.alive==True:  #MATEO.alive?
+    while game and PLAYER.alive==True:
         turns +=1
         key = msvcrt.getch()
         letter= key
@@ -60,10 +56,11 @@ if __name__ == "__main__":
             game = False
         
         movements(PLAYER, DUNGEON, letter)
-        insameplace(PLAYER, GNOMES[DUNGEON.level])
-
+        in_same_place(PLAYER, GNOMES[DUNGEON.level])
         list_letters=[b"w", b"a", b"s", b"d"]
         gnome_movement= random.choice(list_letters)
+        movements(GNOMES[DUNGEON.level], DUNGEON, gnome_movement)
+        in_same_place(PLAYER, GNOMES[DUNGEON.level])
        # movements(GNOMES[DUNGEON.level], DUNGEON, gnome_movement)
         #insameplace(PLAYER, GNOMES[DUNGEON.level])
         actions.pickup(DUNGEON, PLAYER, PICKAXE, SWORD, AMULET)
@@ -95,7 +92,7 @@ if __name__ == "__main__":
                 DUNGEON.level -= 1
                 PLAYER.set_location(DUNGEON.dungeon[DUNGEON.level].index(mapping.STAIR_DOWN))
                 
-        movements(GNOMES[DUNGEON.level], DUNGEON, gnome_movement)
+       
         DUNGEON.render(PLAYER, GNOMES[DUNGEON.level])
 
 ######

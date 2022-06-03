@@ -27,13 +27,9 @@ class Human(Player):
                 self.tool= True
 
     def damage(self):
-        if self.sword:
+        if self.weapon:
             return random.random() * 20 + 5
         return random.random() * 10 + 1
-
-    def kill(self):  #si gnomo= lugar que jugador (y no tienes espada) hp -1.  if hp==0: player.kill
-        self.hp = 0
-        self.alive = False
     
     def set_location(self, xy: Location):
         self.x, self.y = xy
@@ -42,4 +38,3 @@ class Human(Player):
     def has_sword(self):
         return self.weapon
 
-        # completar

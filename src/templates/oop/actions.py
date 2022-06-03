@@ -15,49 +15,31 @@ def clip(value: numeric, minimum: numeric, maximum: numeric) -> numeric:
         return maximum
     return value
 
-#if key == b'w':
-      #  actions.move_up(DUNGEON, MATEO)
-    #elif key == b'a':
-      #  actions.move_left(DUNGEON, MATEO)
-   # elif key == b's':
-       # actions.move_down(DUNGEON, MATEO, rows)  #recibe cant filas
-    #elif key == b'd':
-      #  actions.move_right(DUNGEON, MATEO, columns)  #recibe cant columnas
+'''def attack(dungeon, player, ...): # completar
+     #completar
+    raise NotImplementedError'''
 
-
-#def attack(dungeon, player, ...): # completar
-    # completar
-   # raise NotImplementedError
-
-#locacion= [player.x, player.y]
 def move_to (dungeon: mapping.Dungeon, player: player.Player, location: Tuple[numeric, numeric]):
-    # completar
     if dungeon.is_walkable(location):
         player.move_to(location)
-    #raise NotImplementedError
+        
     elif dungeon.is_walkable(location)== False and player.tool== True:
         player.move_to(location)
         dungeon.dig(location)
 
 def move_up (dungeon: mapping.Dungeon, player: player.Player):
-    #if dungeon.is_walkable([player.x, player.y-1]) or player.tool==True:   # con pico atraviese pared. Ver de que desaparezca
-    if player.y>0:  #no pasar limite
+    if player.y>0:
         move_to(dungeon, player, [player.x, player.y -1])
-            #player.move_to((player.x, player.y - 1))
-    
-def move_down (dungeon: mapping.Dungeon, player: player.Player):  #recibe cant de filas
-    #if dungeon.is_walkable([player.x, player.y+1]) or player.tool==True:
-    if player.y< dungeon.get_rows() -1:    #objeto.valor
+
+def move_down (dungeon: mapping.Dungeon, player: player.Player): 
+    if player.y< dungeon.get_rows() -1:
         move_to(dungeon, player,[player.x, player.y +1])
-    #llamar a dig
 
 def move_left(dungeon: mapping.Dungeon, player: player.Player):
-    #if dungeon.is_walkable([player.x - 1, player.y]) or player.tool==True:
     if player.x>0:
         move_to(dungeon, player,[player.x - 1, player.y])
 
-def move_right(dungeon: mapping.Dungeon, player: player.Player):  #recibe cant de columnas
-    #if dungeon.is_walkable([player.x + 1, player.y]) or player.tool==True:
+def move_right(dungeon: mapping.Dungeon, player: player.Player):
     if player.x< dungeon.get_columns() -1:
         move_to(dungeon, player,[player.x + 1, player.y])
 
@@ -72,7 +54,6 @@ def descend_stair(dungeon: mapping.Dungeon, player: player.Player):
 
 
 def pickup(dungeon: mapping.Dungeon, player: player.Player, pickaxe: items.PickAxe, sword: items.Sword, amulet: items.Amulet):
-    # completar
     if player.loc()== pickaxe.loc():
         player.tool= True
     elif player.loc()== sword.loc():
@@ -81,8 +62,3 @@ def pickup(dungeon: mapping.Dungeon, player: player.Player, pickaxe: items.PickA
         player.treasure= True
     return
     
-
-
-
-#def gnome_action(dungeon: mapping.Dungeon, player: player.Player):
-    #random entre lugares disponibles
