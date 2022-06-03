@@ -1,4 +1,5 @@
 from __future__ import annotations
+#from arrancando_el_tp import DUNGEON
 import src.templates.oop.player as player
 import src.templates.oop.items as items
 import random
@@ -105,13 +106,13 @@ class Level:
         items.append(item)
         self.items[(i, j)] = items
 
-    def render(self, player: player.Player, gnome: player.Player):
+    def render(self, player: player.Player, gnome: player.Player, level):
         """Draw the map onto the terminal, including player and items. Player must have a loc() method, returning its
         location, and a face attribute. All items in the map must have a face attribute which is going to be shown. If
         there are multiple items in one location, only one will be rendered.
         """
         print("-" + "-" * len(self.tiles[0]) + "-")
-        print("Level:1#ver","    ", "HP:", player.hp,"    ", "Tools:",  "ver\n", "Turns:", "   ", "Gnome HP:", gnome.hp)
+        print(f" Level:", (level+1), "   Turns:", "   ", "       ", player.show_items(), "\n",  "HP:", player.hp,"    ", "Gnome HP:" , gnome.hp)
         
         print("-" + "-" * len(self.tiles[0]) + "-")
         for i, row in enumerate(self.tiles):
@@ -268,12 +269,12 @@ class Dungeon:
         # Ubicar escalera del nivel inferior
         self.dungeon[-1].add_stair_up(self.stairs_up[-1])
 
-    def render(self, player: player.Player, gnome: player.Player):
+    def render(self, player: player.Player, gnome: player.Player, level):
         """Draw current level onto the terminal, including player and items. Player must have a loc() method, returning
         its location, and a face attribute. All items in the map must have a face attribute which is going to be shown.
         If there are multiple items in one location, only one will be rendered.
         """
-        self.dungeon[self.level].render(player,gnome)
+        self.dungeon[self.level].render(player,gnome, level)
 
     def find_free_tile(self) -> Location:
         """Randomly searches for a free location inside the level's map.

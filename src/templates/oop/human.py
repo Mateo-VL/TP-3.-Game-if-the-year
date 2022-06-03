@@ -24,6 +24,8 @@ class Human(Player):
                 self.treasure= True
             elif i.type== "tool":
                 self.tool= True
+    
+    
            
 
 

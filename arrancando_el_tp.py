@@ -40,7 +40,7 @@ DUNGEON.add_item(PICKAXE, 1, PICKAXE.loc())   #ya imprime mapa  #podemos hacer r
 DUNGEON.add_item(SWORD, 1, SWORD.loc())
 DUNGEON.add_item(AMULET, 3, AMULET.loc())
 #DUNGEON.add_item(GNOME, 1, GNOME.loc())
-DUNGEON.render(MATEO, GNOMES[DUNGEON.level])
+DUNGEON.render(MATEO, GNOMES[DUNGEON.level], DUNGEON.level)
 while capo and MATEO.alive==True:  #MATEO.alive?
     key = msvcrt.getch()
     if key == b'w':
@@ -98,7 +98,7 @@ while capo and MATEO.alive==True:  #MATEO.alive?
         else:
             DUNGEON.level -= 1   
     
-    DUNGEON.render(MATEO, GNOMES[DUNGEON.level])  #hice cambios en render (level y dungeon) lineas 108 y 230
+    DUNGEON.render(MATEO, GNOMES[DUNGEON.level], DUNGEON.level)  #hice cambios en render (level y dungeon) lineas 108 y 230
 
 #VER TEMA PRINTEO DEL GNOMO 
 #en nivel 3 apenas se mueve se termina el juego

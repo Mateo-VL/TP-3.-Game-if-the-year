@@ -21,6 +21,9 @@ class Player:
 
     def __repr__(self):
         return f"Player('{self.name}', '{self.loc}', '{self.hp}')"
+    
+    def show_items(self):
+        return f"Tool: {self.tool}   Weapon: {self.weapon}   Tresaure: {self.treasure}"
 
 #ver q pico este en ubicacion alcanzable. disponible desde nivel 1?
 import random 
