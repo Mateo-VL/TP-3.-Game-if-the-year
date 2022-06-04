@@ -22,29 +22,14 @@ PICKAXE= items.PickAxe("Pickaxe", "(", DUNGEON.find_free_tile())
 
 rows= DUNGEON.rows
 columns= DUNGEON.columns
-def in_same_place(player: human.Human, gnome: player.Gnome) -> bool:
-    if player.loc()== gnome.loc(): 
-            damage = player.damage()
-            gnome.take_damage(damage)
-            player.take_damage(gnome.damage())
 
-def movements(character: player.Player, dungeon: mapping.Dungeon, letter: str) -> None:
-    if character.get_state()== True:
-            if letter == b"w":
-                 actions.move_up(dungeon, character)
-            elif letter == b"a":
-                 actions.move_left(dungeon, character)
-            elif letter == b"s":
-                 actions.move_down(dungeon, character)
-            elif letter == b"d":
-                 actions.move_right(dungeon, character)
 if __name__ == "__main__":
    
     game = True 
-    DUNGEON.add_item(PICKAXE, 1, PICKAXE.loc())   #ya imprime mapa  #podemos hacer random
+    DUNGEON.add_item(PICKAXE, 1, PICKAXE.loc())
     DUNGEON.add_item(SWORD, 1, SWORD.loc())
     DUNGEON.add_item(AMULET, 3, AMULET.loc())
-    DUNGEON.render(PLAYER, GNOMES[DUNGEON.level])
+    DUNGEON.render(PLAYER, GNOMES[DUNGEON.level], DUNGEON.level)
 
     turns=0
     while game and PLAYER.alive==True:
@@ -55,12 +40,12 @@ if __name__ == "__main__":
         if letter == b'e':
             game = False
         
-        movements(PLAYER, DUNGEON, letter)
-        in_same_place(PLAYER, GNOMES[DUNGEON.level])
+        actions.do_something(PLAYER, DUNGEON, letter)
+        actions.attack(PLAYER, GNOMES[DUNGEON.level])
         list_letters=[b"w", b"a", b"s", b"d"]
         gnome_movement= random.choice(list_letters)
-        movements(GNOMES[DUNGEON.level], DUNGEON, gnome_movement)
-        in_same_place(PLAYER, GNOMES[DUNGEON.level])
+        actions.do_something(GNOMES[DUNGEON.level], DUNGEON, gnome_movement)
+        actions.attack(PLAYER, GNOMES[DUNGEON.level])
         actions.pickup(DUNGEON, PLAYER, PICKAXE, SWORD, AMULET)
         DUNGEON.get_items(PLAYER.loc()) 
         DUNGEON.dig(PLAYER.loc())
@@ -89,7 +74,7 @@ if __name__ == "__main__":
                 PLAYER.set_location(DUNGEON.dungeon[DUNGEON.level].index(mapping.STAIR_DOWN))
                 
        
-        DUNGEON.render(PLAYER, GNOMES[DUNGEON.level])
+        DUNGEON.render(PLAYER, GNOMES[DUNGEON.level], DUNGEON.level)
 
 ######
 
