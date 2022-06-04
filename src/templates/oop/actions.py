@@ -7,19 +7,12 @@ import items  #lo importo
 import msvcrt
 
 numeric = Union[int, float]
-key = msvcrt.getch()
+Location = Tuple[int, int]
 
+def get_key(character: player.Player, dungeon: mapping.Dungeon, letter: bytes) -> None:
+    key = msvcrt.getch()
+    move_to(dungeon, character, key)
 
-def do_something(character: player.Player, dungeon: mapping.Dungeon, letter: bytes) -> None:
-    if character.get_state():
-            if letter == b"w":
-                move_up(dungeon, character)
-            elif letter == b"a":
-                move_left(dungeon, character)
-            elif letter == b"s":
-                move_down(dungeon, character)
-            elif letter == b"d":
-                move_right(dungeon, character)
                  
 def clip(value: numeric, minimum: numeric, maximum: numeric) -> numeric:
     if value < minimum:
@@ -31,17 +24,27 @@ def clip(value: numeric, minimum: numeric, maximum: numeric) -> numeric:
 
 def attack(player: human.Human, gnome: player.Gnome): # completar
     if player.loc()== gnome.loc(): 
-            damage = player.damage()
-            gnome.take_damage(damage)
+            gnome.take_damage(player.damage())
             player.take_damage(gnome.damage())
 
-def move_to (dungeon: mapping.Dungeon, player: player.Player, location: Tuple[numeric, numeric]):
-    if dungeon.is_walkable(location):
-        player.move_to(location)
+def move_to (dungeon: mapping.Dungeon, player: player.Player, key: bytes):
+    if player.get_state():
+            if key == b"w":
+                new_location= move_up(dungeon, player)
+            elif key == b"a":
+                new_location= move_left(dungeon, player)
+            elif key == b"s":
+                new_location= move_down(dungeon, player)
+            elif key == b"d":
+                new_location= move_right(dungeon, player)
+    if dungeon.is_walkable(new_location):
+        player.move_to(new_location)
         
-    elif dungeon.is_walkable(location)== False and player.tool== True:
-        player.move_to(location)
-        dungeon.dig(location)
+    elif dungeon.is_walkable(new_location)== False and player.tool== True:
+        player.move_to(new_location)
+        dungeon.dig(new_location)
+    else:
+        pass
 
 def move_up (dungeon: mapping.Dungeon, player: player.Player):
     if player.y>0:

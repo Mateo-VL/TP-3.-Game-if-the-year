@@ -34,13 +34,9 @@ if __name__ == "__main__":
     turns=0
     while game and PLAYER.alive==True:
         turns +=1
-        key = msvcrt.getch()
-        letter= key
         
-        if letter == b'e':
-            game = False
         
-        actions.do_something(PLAYER, DUNGEON, letter)
+        actions.do_something(PLAYER, DUNGEON)
         actions.attack(PLAYER, GNOMES[DUNGEON.level])
         list_letters=[b"w", b"a", b"s", b"d"]
         gnome_movement= random.choice(list_letters)
