@@ -5,13 +5,47 @@ import mapping
 import player 
 import items  #lo importo
 import msvcrt
+import random
+import human
 
 numeric = Union[int, float]
 Location = Tuple[int, int]
 
-def get_key(character: player.Player, dungeon: mapping.Dungeon, letter: bytes) -> None:
+
+def use_turn(character: human.Human, gnome:player.Gnome, dungeon: mapping.Dungeon, game: bool) -> bool:
     key = msvcrt.getch()
-    move_to(dungeon, character, key)
+    list_letters=[b"w", b"a", b"s", b"d"]
+    
+    if key == b'e':
+        game = False
+        return game
+    gnome_new_location = _get_new_location(gnome, random.choice(list_letters))
+    new_location = _get_new_location(character, key)
+    if validate_location(dungeon, new_location):
+        _move_to(dungeon, character, new_location)
+        attack(character, gnome)
+    if validate_location(dungeon, gnome_new_location):
+        _move_to(dungeon, gnome, gnome_new_location)
+        attack(gnome, character)
+    if character.loc() == dungeon.dungeon[dungeon.level].index(mapping.STAIR_DOWN):
+        game = descend_stair(dungeon, character, game)
+    if character.loc()== dungeon.dungeon[dungeon.level].index(mapping.STAIR_UP):
+        game = climb_stair(dungeon, character, game)
+        
+    return game
+
+def _get_new_location(player: player.Player, key: bytes) -> Location:
+    new_location = player.loc()
+    if player.get_state():
+        if key == b"w":
+            new_location= _move_up(player)
+        elif key == b"a":
+            new_location= _move_left(player)
+        elif key == b"s":
+            new_location= _move_down(player)
+        elif key == b"d":
+            new_location= _move_right(player)
+    return new_location
 
                  
 def clip(value: numeric, minimum: numeric, maximum: numeric) -> numeric:
@@ -27,57 +61,47 @@ def attack(player: human.Human, gnome: player.Gnome): # completar
             gnome.take_damage(player.damage())
             player.take_damage(gnome.damage())
 
-def move_to (dungeon: mapping.Dungeon, player: player.Player, key: bytes):
-    if player.get_state():
-            if key == b"w":
-                new_location= move_up(dungeon, player)
-            elif key == b"a":
-                new_location= move_left(dungeon, player)
-            elif key == b"s":
-                new_location= move_down(dungeon, player)
-            elif key == b"d":
-                new_location= move_right(dungeon, player)
-    if dungeon.is_walkable(new_location):
-        player.move_to(new_location)
+
+def validate_location(dungeon: mapping.Dungeon, location: Location) -> bool:
+    if dungeon.get_columns() > location[0] >= 0 and dungeon.get_rows() > location[1] >= 0:
+        return True
+    return False
+
+def _move_to (dungeon: mapping.Dungeon, player: player.Player, location: Location):
+    if dungeon.is_walkable(location):
+        player.move_to(location)
         
-    elif dungeon.is_walkable(new_location)== False and player.tool== True:
-        player.move_to(new_location)
-        dungeon.dig(new_location)
+    elif dungeon.is_walkable(location)== False and player.tool== True:
+        player.move_to(location)
+        dungeon.dig(location)
+
+def _move_up (player: player.Player) -> Location:
+        return player.loc()[0], player.loc()[1]-1
+
+def _move_down (player: player.Player) -> Location: 
+        return player.loc()[0], player.loc()[1] + 1
+
+def _move_left(player: player.Player) -> Location:
+    return player.loc()[0] - 1, player.loc()[1]
+
+def _move_right(player: player.Player) -> Location:
+    return player.loc()[0] + 1, player.loc()[1]
+
+def climb_stair(dungeon: mapping.Dungeon, human: human.Human, game: bool) -> bool:
+    if dungeon.level == 0:         
+        game = False 
+        return game
     else:
+        dungeon.level -= 1
+        human.move_to(dungeon.dungeon[dungeon.level].index(mapping.STAIR_UP)) 
+    return game
+
+def descend_stair(dungeon: mapping.Dungeon, human: human.Human, game: bool) -> bool:
+    if dungeon.level == len(dungeon.dungeon)-1:
         pass
+    else:
+        dungeon.level += 1
+        human.move_to(dungeon.dungeon[dungeon.level].index(mapping.STAIR_DOWN))
+    return game
 
-def move_up (dungeon: mapping.Dungeon, player: player.Player):
-    if player.y>0:
-        move_to(dungeon, player, [player.x, player.y -1])
-
-def move_down (dungeon: mapping.Dungeon, player: player.Player): 
-    if player.y< dungeon.get_rows() -1:
-        move_to(dungeon, player,[player.x, player.y +1])
-
-def move_left(dungeon: mapping.Dungeon, player: player.Player):
-    if player.x>0:
-        move_to(dungeon, player,[player.x - 1, player.y])
-
-def move_right(dungeon: mapping.Dungeon, player: player.Player):
-    if player.x< dungeon.get_columns() -1:
-        move_to(dungeon, player,[player.x + 1, player.y])
-
-def climb_stair(dungeon: mapping.Dungeon, player: player.Player):
-    # completar
-    raise NotImplementedError
-
-
-def descend_stair(dungeon: mapping.Dungeon, player: player.Player):
-    # completar
-    raise NotImplementedError
-
-
-def pickup(dungeon: mapping.Dungeon, player: player.Player, pickaxe: items.PickAxe, sword: items.Sword, amulet: items.Amulet):
-    if player.loc()== pickaxe.loc():
-        player.tool= True
-    elif player.loc()== sword.loc():
-        player.weapon= True
-    elif player.loc()== amulet.loc():
-        player.treasure= True
-    return
     
