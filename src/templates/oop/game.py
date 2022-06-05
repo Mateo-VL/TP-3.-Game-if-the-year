@@ -24,14 +24,15 @@ rows= DUNGEON.rows
 columns= DUNGEON.columns
 
 if __name__ == "__main__":
-   
+    #player_name= input("Name:")
     game = True 
     DUNGEON.add_item(PICKAXE, 1, PICKAXE.loc())
     DUNGEON.add_item(SWORD, 1, SWORD.loc())
     DUNGEON.add_item(AMULET, 3, AMULET.loc())
-    DUNGEON.render(PLAYER, GNOMES[DUNGEON.level], DUNGEON.level)
-
     turns=0
+    DUNGEON.render(PLAYER, GNOMES[DUNGEON.level], DUNGEON.level, turns)
+
+    
     while game and PLAYER.alive==True:
         turns +=1
         
@@ -58,10 +59,13 @@ if __name__ == "__main__":
         if PLAYER.loc() == stair_up:
             if DUNGEON.level == 0:
                 if PLAYER.treasure== True:
+                    DUNGEON.render(PLAYER, GNOMES[DUNGEON.level], DUNGEON.level, turns)
                     print("Congratulations! You accomplished with the mision.")
-                
+                    break
                 else:
+                    DUNGEON.render(PLAYER, GNOMES[DUNGEON.level], DUNGEON.level, turns)
                     print("The game ended. You abandoned the mission")
+                    break
                 
                 game = False 
                                
@@ -70,7 +74,7 @@ if __name__ == "__main__":
                 PLAYER.set_location(DUNGEON.dungeon[DUNGEON.level].index(mapping.STAIR_DOWN))
                 
        
-        DUNGEON.render(PLAYER, GNOMES[DUNGEON.level], DUNGEON.level)
+        DUNGEON.render(PLAYER, GNOMES[DUNGEON.level])
 
 ######
 

@@ -106,13 +106,13 @@ class Level:
         items.append(item)
         self.items[(i, j)] = items
 
-    def render(self, player: player.Player, gnome: player.Player, level: int) -> str:
+    def render(self, player: player.Player, gnome: player.Player, level: int, turns: int):
         """Draw the map onto the terminal, including player and items. Player must have a loc() method, returning its
         location, and a face attribute. All items in the map must have a face attribute which is going to be shown. If
         there are multiple items in one location, only one will be rendered.
         """
         print("-" + "-" * len(self.tiles[0]) + "-")
-        print("Level:", level,  " Turns:", "    ",  player.show_items())
+        print("Level:", (level+1),  " Turns:", turns,  "     ", player.show_items())
         print("HP:", ceil(player.get_hp()),  "   Gnome HP:", ceil(gnome.get_hp()))  
         
         print("-" + "-" * len(self.tiles[0]) + "-")
@@ -229,12 +229,12 @@ class Dungeon:
         # Ubicar escalera del nivel inferior
         self.dungeon[-1].add_stair_up(self.stairs_up[-1])
 
-    def render(self, player: player.Player, gnome: player.Player, level: int):
+    def render(self, player: player.Player, gnome: player.Player, level):
         """Draw current level onto the terminal, including player and items. Player must have a loc() method, returning
         its location, and a face attribute. All items in the map must have a face attribute which is going to be shown.
         If there are multiple items in one location, only one will be rendered.
         """
-        self.dungeon[self.level].render(player, gnome, level)
+        self.dungeon[self.level].render(player, gnome, level, turns)
 
     def find_free_tile(self) -> Location:
         """Randomly searches for a free location inside the level's map.

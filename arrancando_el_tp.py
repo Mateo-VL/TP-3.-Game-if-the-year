@@ -114,20 +114,20 @@ while capo and MATEO.alive==True:  #MATEO.alive?
 
 """
 COSAS POR HACER:
--que cuando regrese al nivel anterior quede el mismo mapa (y que no cree otro nuevo)
-- que cuando pase por items cambie estado de objeto = True (ver funcion take_object en human)
+-que cuando regrese al nivel anterior quede el mismo mapa (y que no cree otro nuevo) $
+- que cuando pase por items cambie estado de objeto = True (ver funcion take_object en human)  
 -completar funciones para ver si hay camino posible. ver mapping (al menos para el nivel 1, donde hay q fijarse que haya camino entre personaje y pico)
-- que se pueda mover en nivel 3 (cuando se apreta tecla se termina el juego, ver error)
+- que se pueda mover en nivel 3 (cuando se apreta tecla se termina el juego, ver error) $
 -pasar la funcion que se fija la tecla apretada al archivo game. lo mismo con lo de agarrar los items (funcion pick_up en actions)
-- hacer que imprima HP del jugador, los turnos, que items tiene, el nivel en el que está.
-- ver que hacer si jugador se queda sin vidas restantes.
+- hacer que imprima HP del jugador, los turnos, que items tiene, el nivel en el que está. $
+- ver que hacer si jugador se queda sin vidas restantes. $
 - hacer funcion has_sword (en human). si está en = posicion que Gnomo, lo mata (y q aparezca nuevamente en siguiente nivel). fijarse que al volver al nivel anterior el gnomo
-no aparezca (si se mató antes).
-- hacer clase Gnome. que esté en cada nivel. hacer que desaparezca si se mata. Que se mueva con random
+no aparezca (si se mató antes). $
+- hacer clase Gnome. que esté en cada nivel. hacer que desaparezca si se mata. Que se mueva con random $
 - pasar lo de las escaleras a archivo actions
 - hacer que si está en una escalera tenga que volver a apretar la tecla para cambiar nivel?
-- que imprima mensaje si gana o abandona mision?
+- que imprima mensaje si gana o abandona mision? $
 - al comienzo del juego solicitar un nombre.
 - ver que siempre haya camino entre gnomo y pers (en estado inicial, sin contar paredes rotas), lo mismo con escalera que baja
-- solucionar cuando se cambia nivel, gnomo permanece en mismo lugar
+- solucionar cuando se cambia nivel, gnomo permanece en mismo lugar $
 """

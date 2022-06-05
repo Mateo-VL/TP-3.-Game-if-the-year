@@ -19,7 +19,7 @@ class Human(Player):
 
    
 
-
+    #
     def take_object(self, list_items: List [Item]):
         for i in list_items:
             if i.type == "weapon":
