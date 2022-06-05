@@ -24,12 +24,15 @@ def use_turn(character: human.Human, gnome:player.Gnome, dungeon: mapping.Dungeo
     if validate_location(dungeon, new_location):
         _move_to(dungeon, character, new_location)
         attack(character, gnome)
+    
     if validate_location(dungeon, gnome_new_location):
         _move_to(dungeon, gnome, gnome_new_location)
         attack(gnome, character)
-    if character.loc() == dungeon.dungeon[dungeon.level].index(mapping.STAIR_DOWN):
-        game = descend_stair(dungeon, character, game)
-    if character.loc()== dungeon.dungeon[dungeon.level].index(mapping.STAIR_UP):
+    
+    if dungeon.level < 2 and character.loc() == dungeon.dungeon[dungeon.level].index(mapping.STAIR_DOWN):
+        descend_stair(dungeon, character)
+    
+    elif character.loc()== dungeon.dungeon[dungeon.level].index(mapping.STAIR_UP):
         game = climb_stair(dungeon, character, game)
         
     return game
@@ -93,15 +96,11 @@ def climb_stair(dungeon: mapping.Dungeon, human: human.Human, game: bool) -> boo
         return game
     else:
         dungeon.level -= 1
-        human.move_to(dungeon.dungeon[dungeon.level].index(mapping.STAIR_UP)) 
+        human.move_to(dungeon.dungeon[dungeon.level].index(mapping.STAIR_DOWN)) 
     return game
 
-def descend_stair(dungeon: mapping.Dungeon, human: human.Human, game: bool) -> bool:
-    if dungeon.level == len(dungeon.dungeon)-1:
-        pass
-    else:
-        dungeon.level += 1
-        human.move_to(dungeon.dungeon[dungeon.level].index(mapping.STAIR_DOWN))
-    return game
+def descend_stair(dungeon: mapping.Dungeon, human: human.Human) -> bool:
+    dungeon.level += 1
+    human.move_to(dungeon.dungeon[dungeon.level].index(mapping.STAIR_UP))
 
     
