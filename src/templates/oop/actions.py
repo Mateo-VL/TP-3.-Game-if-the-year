@@ -93,7 +93,6 @@ def attack(player: human.Human, gnome: player.Gnome): # completar
     
     :param player:human.Human: Access the player's location and damage
     :param gnome:player.Gnome: Access the gnome's location and damage functions
-    :return: A boolean value
     """
     if player.loc()== gnome.loc(): 
             gnome.take_damage(player.damage())
@@ -106,9 +105,7 @@ def _move_to (dungeon: mapping.Dungeon, player: player.Player, location: Locatio
     
     :param dungeon:mapping.Dungeon: Check if the location is walkable
     :param player:player.Player: Access the player's current location
-    :param location:Location: Determine the location of the player
-    :return: None
-
+    :param location:Location: Determine the location of the player.
     """
     if dungeon.is_walkable(location):
         player.move_to(location)
@@ -132,7 +129,8 @@ def _move_down (player: player.Player) -> Location:
     Moves the player down one space on the grid.
         
     :param player:player.Player: Pass the player object to the function
-    :return: The new location of the player after moving up"""
+    :return: The new location of the player after moving down
+    """
     return player.loc()[0], player.loc()[1] + 1
 
 def _move_left(player: player.Player) -> Location:
@@ -140,7 +138,7 @@ def _move_left(player: player.Player) -> Location:
     Moves the player to left one space on the grid.
         
     :param player:player.Player: Pass the player object to the function
-    :return: The new location of the player after moving up
+    :return: The new location of the player after moving to left
     """
     return player.loc()[0] - 1, player.loc()[1]
 
@@ -149,7 +147,7 @@ def _move_right(player: player.Player) -> Location:
     Moves the player right one space on the grid.
         
     :param player:player.Player: Pass the player object to the function
-    :return: The new location of the player after moving up
+    :return: The new location of the player after moving to right
     """
     return player.loc()[0] + 1, player.loc()[1]
 
@@ -159,7 +157,7 @@ def climb_stair(dungeon: mapping.Dungeon, human: human.Human, game: bool) -> boo
     
     :param dungeon:mapping.Dungeon: Access the dungeon's level.
     :param human:human.Human: Refer to the human object that is created in the main function.
-    :return: where player appears in other level.
+    :return: the state of the game
     """
     if dungeon.level == 0:         
         game = False 
@@ -175,7 +173,6 @@ def descend_stair(dungeon: mapping.Dungeon, human: human.Human) -> bool:
     
     :param dungeon:mapping.Dungeon: Access the dungeon's level.
     :param human:human.Human: Refer to the human object that is created in the main function.
-    :return: where player appears in other level.
     """
     dungeon.level += 1
     human.move_to(dungeon.dungeon[dungeon.level].index(mapping.STAIR_UP))
