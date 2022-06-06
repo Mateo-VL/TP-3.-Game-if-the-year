@@ -224,14 +224,13 @@ class Level:
     
             current = queue_of_points.pop(0)
             
-            if current in visited: # chequeamos que el espacio no fue recorrido
+            if current in visited: 
                 continue
     
             visited.add(current)
     
             if current == end:
                 found = True
-    
     
             for p in self.get_neighbours(current):
                 if self.is_available(visited, p):
@@ -376,10 +375,6 @@ class Dungeon:
     def dig(self, xy: Location) -> None:
         """Replace a WALL at the given location, by AIR. See Level.dig()."""
         return self.dungeon[self.level].dig(xy)
-#completar
-    def is_free(self, xy: Location) -> bool:
-        """NOT IMPLEMENTED. Check if a given location is free of other entities. See Level.is_free()."""
-        return self.dungeon[self.level].is_free(xy)
     
     def is_inside_map(self, xy: Location) -> bool:
         """Check if a given location is inside the map."""

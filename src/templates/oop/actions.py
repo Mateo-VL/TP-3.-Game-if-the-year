@@ -18,11 +18,8 @@ def use_turn(character: human.Human, gnome:player.Gnome, dungeon: mapping.Dungeo
     if key == b'e':
         game = False
         return game
-     #llamo funcion 
-    #if is_near(character, gnome)== False:
+ 
     gnome_new_location = _get_new_location(gnome, random.choice(list_letters))
-    #elif is_near(character, gnome)== True:
-        #find_gnome_movement(character, gnome, dungeon)
     new_location = _get_new_location(character, key)
     if dungeon.is_inside_map(new_location):
         _move_to(dungeon, character, new_location)
@@ -85,13 +82,6 @@ def _get_new_location(player: player.Player, key: bytes) -> Location:
             new_location= _move_right(player)
     return new_location
 
-                 
-def clip(value: numeric, minimum: numeric, maximum: numeric) -> numeric:
-    if value < minimum:
-        return minimum
-    if value > maximum:
-        return maximum
-    return value
 
 
 def attack(player: human.Human, gnome: player.Gnome): # completar

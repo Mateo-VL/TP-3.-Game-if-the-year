@@ -2,17 +2,17 @@ import mapping
 import human
 import actions
 import player
-import items         #cambiar los imports para entrega final
-#from src.templates.oop.human import Human
-#from src.templates.oop.items import Item
-#import src.templates.oop.actions as actions
-import hay_camino
+import items         
+
 
 
 if __name__ == "__main__":
+    """
+    Principal function that runs the game.
+    """
     ROWS = 25
     COLUMNS = 80
-    DUNGEON = mapping.Dungeon(ROWS, COLUMNS)   #pedir parametros para ver longitud y ver que no pase limites
+    DUNGEON = mapping.Dungeon(ROWS, COLUMNS)   
     PLAYER = human.Human(DUNGEON.dungeon[DUNGEON.level].index(mapping.STAIR_UP))
     GNOMES = [player.Gnome('Gnome', DUNGEON.find_free_tile()) for _ in range(len(DUNGEON.dungeon))]
     
@@ -26,9 +26,7 @@ if __name__ == "__main__":
     turns=0
     DUNGEON.render(PLAYER, GNOMES[DUNGEON.level], DUNGEON.level, turns)
     while game and PLAYER.alive==True:
-        #if hay_camino.are_connected(DUNGEON, DUNGEON[DUNGEON.level].index())
         turns +=1
-        
         game = actions.use_turn(PLAYER, GNOMES[DUNGEON.level], DUNGEON, game)
         PLAYER.pickup(DUNGEON.get_items(PLAYER.loc()))      
         DUNGEON.render(PLAYER, GNOMES[DUNGEON.level], DUNGEON.level, turns)
