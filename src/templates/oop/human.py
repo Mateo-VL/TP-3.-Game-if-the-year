@@ -6,7 +6,8 @@ from typing import List, Tuple
 Location = Tuple[int, int]
 
 class Human(Player):
-    def __init__(self, name: str, xy):
+    def __init__(self, xy):
+        name = input("What is your name? ")
         super().__init__(name, xy, 50)
         self.weapon = None
         self.treasure = None

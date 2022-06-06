@@ -1,4 +1,4 @@
-from ast import Not
+from copy import copy
 from typing import List, Set, Tuple
 import mapping
 

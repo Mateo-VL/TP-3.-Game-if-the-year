@@ -131,6 +131,12 @@ class Level:
         print("-" + "-" * len(self.tiles[0]) + "-")
 
     def is_walkable(self, location: Location) -> bool:
+        """
+        The is_walkable function checks if a given location is walkable.
+        
+        :param location:Location: Specify the location of the tile that is being checked
+        :return: A boolean value
+        """
         j, i = location
         return self.tiles[i % self.rows][j % self.columns].walkable
 
@@ -309,18 +315,22 @@ class Dungeon:
         self.rows = rows
         self.columns = columns
         self.level = 0
-
-        self.stairs_up = [level.get_random_location() for level in self.dungeon]
-        self.stairs_down = [level.get_random_location() for level in self.dungeon[:-1]]
+        self.stairs_up = []
+        self.stairs_down = []
+        for level in self.dungeon:
+            stair_up = level.get_random_location()
+            stair_down = level.get_random_location()
+            while not level.are_connected(stair_up, stair_down):
+                stair_up = level.get_random_location()
+                stair_down = level.get_random_location()
+            self.stairs_up.append(stair_up)
+            self.stairs_down.append(stair_down)
 
         for level, loc_up, loc_down in zip(self.dungeon[:-1], self.stairs_up[:-1], self.stairs_down):
-            # Ubicar escalera que sube
+            
             level.add_stair_up(loc_up)
-
-            # Ubicar escalera que baja
             level.add_stair_down(loc_down)
 
-        # Ubicar escalera del nivel inferior
         self.dungeon[-1].add_stair_up(self.stairs_up[-1])
 
     def render(self, player: player.Player, gnome: player.Player, level: int, turns: int):
