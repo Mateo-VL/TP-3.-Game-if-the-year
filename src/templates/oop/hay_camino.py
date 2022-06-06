@@ -1,3 +1,4 @@
+from ast import Not
 from typing import List, Set, Tuple
 import mapping
 
@@ -8,8 +9,11 @@ mapa: List[List[int]] = []
 
 point =  Tuple[int, int]
 '''
-ROCK = 1
-EMPTY = 0
+WALL = mapping.WALL
+EMPTY = mapping.AIR
+INICIO = mapping.STAIR_UP
+FIN = mapping.STAIR_DOWN
+
 
 DUNGEON = mapping.Dungeon(25,80)
 
@@ -115,10 +119,10 @@ def is_inside_map(num_rows: int, num_cols: int, point: Location) -> bool:
     Returns:
         True si esta adentro false si no
     '''
-    if point[0] < 0 or point[0] >= num_rows:
+    if point[0] < 0 or point[0] >= num_cols:
         return False
     
-    if point[1] < 0 or point[1] >= num_cols:
+    if point[1] < 0 or point[1] >= num_rows:
         return False
     return True
 
@@ -138,7 +142,6 @@ def is_available(visited: Set, level: mapping.Level, point: Location):
     
     if not level.is_walkable(point):
         return False
-
     return True
 
 
