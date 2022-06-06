@@ -15,18 +15,15 @@ class Human(Player):
         self.face = '@'  
 
     def get_face(self):
+        """
+        Return player face.
+        """
         return self.face
 
-    def take_object(self, list_items: List [Item]):
-        for i in list_items:
-            if i.type == "weapon":
-                self.weapon= True
-            elif i.type== "treasure":
-                self.treasure= True
-            elif i.type== "tool":
-                self.tool= True
+
     
     def pickup(self, items: List[Item]):
+        """Player grabs the object from where is stand over."""
         for item in items:
             if isinstance(item, Sword):
                 self.weapon = item
@@ -36,10 +33,16 @@ class Human(Player):
                 self.tool = True
 
     def damage(self):
+        """
+        Return a damage value that player cause.
+        """
         if self.weapon:
             return random.random() * 20 + 5
         return random.random() * 10 + 1      
 
     def has_sword(self):
+        """
+        Return if player has the sword.
+        """
         return self.weapon
 

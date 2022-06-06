@@ -179,15 +179,7 @@ class Level:
         if self.tiles[i][j] is WALL:
             self.tiles[i][j] = AIR
 
-    def is_free(self, xy: Location) -> bool:
-        """Check if a given location is free of other entities."""
-        # completar   
-        #if self.is_walkable(xy) ==True:
-            #return True
-        #else:
-            #return False
 
-        raise NotImplementedError
 
     def are_connected(self, initial: Location, end: Location) -> bool:
         """
@@ -296,13 +288,7 @@ class Level:
             return False
         return True
     
-    def get_path(self, initial: Location, end: Location) -> bool:
-        """Return a sequence of locations between initial location and end location, if it exits."""
-        # completar
-        #if initial == end:
-            #return True
-       # elif:
-        raise NotImplementedError
+
 
 
     
@@ -386,11 +372,13 @@ class Dungeon:
         return self.dungeon[self.level].is_free(xy)
     
     def is_inside_map(self, xy: Location) -> bool:
-        """NOT IMPLEMENTED. Check if a given location is inside the map. See Level.is_inside_map()."""
+        """Check if a given location is inside the map."""
         return self.dungeon[self.level].is_inside_map(xy)
     
     def get_columns(self) -> int:
+        """ Return the number of columns"""
         return self.columns
     
     def get_rows(self) -> int:
+        """ Return the number of rows"""
         return self.rows
