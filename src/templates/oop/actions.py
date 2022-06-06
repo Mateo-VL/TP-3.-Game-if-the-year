@@ -3,7 +3,6 @@ from typing import Union, Tuple
 import human
 import mapping
 import player 
-import items  #lo importo
 import msvcrt
 import random
 import human
@@ -21,11 +20,11 @@ def use_turn(character: human.Human, gnome:player.Gnome, dungeon: mapping.Dungeo
         return game
     gnome_new_location = _get_new_location(gnome, random.choice(list_letters))
     new_location = _get_new_location(character, key)
-    if validate_location(dungeon, new_location):
+    if dungeon.is_inside_map(new_location):
         _move_to(dungeon, character, new_location)
         attack(character, gnome)
     
-    if validate_location(dungeon, gnome_new_location):
+    if dungeon.is_inside_map(gnome_new_location):
         _move_to(dungeon, gnome, gnome_new_location)
         attack(gnome, character)
     
@@ -63,12 +62,6 @@ def attack(player: human.Human, gnome: player.Gnome): # completar
     if player.loc()== gnome.loc(): 
             gnome.take_damage(player.damage())
             player.take_damage(gnome.damage())
-
-
-def validate_location(dungeon: mapping.Dungeon, location: Location) -> bool:
-    if dungeon.get_columns() > location[0] >= 0 and dungeon.get_rows() > location[1] >= 0:
-        return True
-    return False
 
 def _move_to (dungeon: mapping.Dungeon, player: player.Player, location: Location):
     if dungeon.is_walkable(location):

@@ -1,6 +1,6 @@
 import random
 from typing import Optional
-from typing import List, Tuple
+from typing import List, Tuple, Set
 from math import ceil
 
 import player
@@ -158,7 +158,8 @@ class Level:
         return self.tiles[i][j]
 
     def get_items(self, xy: Location) -> List[items.Item]:
-        """Get a list of all items at a given location. Removes the items from that location."""
+        """Get a list of all items at a given location. Removes the items from that location.
+        param: xy (Location) -- the location of the items"""
         j, i = xy
         if (i, j) in self.items:
             items = self.items[(i, j)]
@@ -167,8 +168,13 @@ class Level:
             items = []
         return items
 
-    def dig(self, xy: Location) -> None:   #cuando rompe pared?
-        """Replace a WALL at the given location, by AIR."""
+    def dig(self, xy: Location) -> None:
+        """
+        The dig function takes a location as an argument and replaces the tile at that location with AIR.
+        
+        
+        :param xy:Location: Specify the location of the tile that is going to be dug
+        """
         j, i = xy
         if self.tiles[i][j] is WALL:
             self.tiles[i][j] = AIR
@@ -184,10 +190,112 @@ class Level:
         raise NotImplementedError
 
     def are_connected(self, initial: Location, end: Location) -> bool:
-        """Check if there is walkable path between initial location and end location."""
-        # completar
-        raise NotImplementedError
+        """
+        The are_connected function takes two arguments, initial and end.
+        It returns True if there is a path from the first location to the second location.
+        Otherwise it returns False.
+        
+        :param initial:Location: Define the starting point of the search
+        :param end:Location: Specify the end location of a path
+        :return: True if there is a path from the first location to the second location. False otherwise.
+        """
+        return self.search_path(initial, end, set())
+    
+    def search_path(
+        self,
+        current_point: Location, 
+        end: Location, 
+        visited: Set
+    ) -> bool:
+        """
+        The search_path function takes a starting point and an end point, and returns whether or not a path exists.
+        It uses a queue to store points that have been visited but are not the end point. It also uses a set to keep track of 
+        points that have already been visited.
+        
+        :param current_point:Location: Indicate the current point in the search
+        :param end:Location: Determine if the search has finished
+        :param visited:Set: Avoid cycles
+        :return: True if the end point is found, and false otherwise
+        """
 
+
+        found = False
+        queue_of_points = self.get_neighbours(current_point)
+    
+        while not found and len(queue_of_points) > 0:
+    
+            current = queue_of_points.pop(0)
+            
+            if current in visited: # chequeamos que el espacio no fue recorrido
+                continue
+    
+            visited.add(current)
+    
+            if current == end:
+                found = True
+    
+    
+            for p in self.get_neighbours(current):
+                if self.is_available(visited, p):
+                    queue_of_points.append(p)
+        
+        return found
+
+
+    def get_neighbours(self, point: Location) -> List[Location]:
+        """
+        The get_neighbours function returns a list of all the neighbouring locations a player can move to.
+        The function takes in a location as an argument and returns a list of locations.
+        
+        :param point:Location: the coordinates of the point
+        :return: A list of all the neighbours of a given point
+        """
+        directions = {
+            '0': [1, 0],
+            '90': [0, -1],
+            '180': [-1, 0],
+            '270': [0, 1]
+        }
+        neighbours = []
+        for deltas in directions.values():
+            possible_neighbour = (point[0]+ deltas[0], point[1]+ deltas[1])
+            if self.is_inside_map(possible_neighbour):
+                neighbours.append(possible_neighbour)
+        return neighbours
+    
+    
+    def is_inside_map(self, point: Location) -> bool:
+        """
+        The is_inside_map function checks if a given point is inside the map.
+        
+        :param point:Location: the point to check
+        :return: True if the point is inside the map, False otherwise
+        """
+        if point[0] < 0 or point[0] >= self.columns:
+            return False
+        
+        if point[1] < 0 or point[1] >= self.rows:
+            return False
+        return True
+    
+    
+    def is_available(self, visited: Set, point: Location):
+        """
+        The is_available function checks if a given point is available for the player to move into. 
+        It takes in a set of visited points and the current location of the robot as arguments. It returns True if it is possible for 
+        the player to move into that point, and False otherwise.
+        
+        :param visited:Set: Check if the point has already been visited
+        :param point:Location: Check if the point is walkable
+        :return: True if the point is not in the visited set and is walkable
+        """
+        if point in visited:
+            return False
+        
+        if not self.is_walkable(point):
+            return False
+        return True
+    
     def get_path(self, initial: Location, end: Location) -> bool:
         """Return a sequence of locations between initial location and end location, if it exits."""
         # completar
@@ -276,6 +384,10 @@ class Dungeon:
     def is_free(self, xy: Location) -> bool:
         """NOT IMPLEMENTED. Check if a given location is free of other entities. See Level.is_free()."""
         return self.dungeon[self.level].is_free(xy)
+    
+    def is_inside_map(self, xy: Location) -> bool:
+        """NOT IMPLEMENTED. Check if a given location is inside the map. See Level.is_inside_map()."""
+        return self.dungeon[self.level].is_inside_map(xy)
     
     def get_columns(self) -> int:
         return self.columns
