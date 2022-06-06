@@ -3,8 +3,6 @@ import human
 import actions
 import player
 import items         #cambiar los imports para entrega final
-import msvcrt
-import random
 #from src.templates.oop.human import Human
 #from src.templates.oop.items import Item
 #import src.templates.oop.actions as actions
@@ -36,98 +34,10 @@ if __name__ == "__main__":
     while game and PLAYER.alive==True:
         turns +=1
         
-        
-        actions.do_something(PLAYER, DUNGEON)
-        actions.attack(PLAYER, GNOMES[DUNGEON.level])
-        list_letters=[b"w", b"a", b"s", b"d"]
-        gnome_movement= random.choice(list_letters)
-        actions.do_something(GNOMES[DUNGEON.level], DUNGEON, gnome_movement)
-        actions.attack(PLAYER, GNOMES[DUNGEON.level])
-        actions.pickup(DUNGEON, PLAYER, PICKAXE, SWORD, AMULET)
-        DUNGEON.get_items(PLAYER.loc()) 
-        DUNGEON.dig(PLAYER.loc())
-
-        if DUNGEON.level < 2:
-            stair_down = DUNGEON.dungeon[DUNGEON.level].index(mapping.STAIR_DOWN)
-        stair_up = DUNGEON.dungeon[DUNGEON.level].index(mapping.STAIR_UP)
-        
-        if PLAYER.loc()== stair_down:
-            DUNGEON.level += 1
-            GNOMES[DUNGEON.level].loc()== DUNGEON.find_free_tile()
-            PLAYER.set_location(DUNGEON.dungeon[DUNGEON.level].index(mapping.STAIR_UP))
-        
-        if PLAYER.loc() == stair_up:
-            if DUNGEON.level == 0:
-                if PLAYER.treasure== True:
-                    DUNGEON.render(PLAYER, GNOMES[DUNGEON.level], DUNGEON.level, turns)
-                    print("Congratulations! You accomplished with the mision.")
-                    break
-                else:
-                    DUNGEON.render(PLAYER, GNOMES[DUNGEON.level], DUNGEON.level, turns)
-                    print("The game ended. You abandoned the mission")
-                    break
-                
-                game = False 
-                               
-            else:
-                DUNGEON.level -= 1
-                PLAYER.set_location(DUNGEON.dungeon[DUNGEON.level].index(mapping.STAIR_DOWN))
-                
-       
-        DUNGEON.render(PLAYER, GNOMES[DUNGEON.level])
-
-######
-
-
-
-
-   
-""""
-    if DUNGEON.level < 2:
-        stair_down = DUNGEON.dungeon[DUNGEON.level].index(mapa.STAIR_DOWN)
-    stair_up = DUNGEON.dungeon[DUNGEON.level].index(mapa.STAIR_UP)
-    if MATEO.loc() == stair_down:
-        DUNGEON.level += 1
-        GNOMES[DUNGEON.level].loc()== DUNGEON.find_free_tile()  #gnomo aparece en cada nivel 
-        #GNOME.loc()== DUNGEON.level.get_random_location()
-    if MATEO.loc() == stair_up:
-        if DUNGEON.level == 0:
-           
-            if MATEO.treasure== True:
-                print("Congratulations! You accomplished with the mision.")
-            else:
-                print("The game ended. You abandoned the mission")
-            capo = False
-
-            
-        else:
-            DUNGEON.level -= 1   
-    gnome_movement(GNOMES, DUNGEON)
-    DUNGEON.render(MATEO, GNOMES[DUNGEON.level])  #hice cambios en render (level y dungeon) lineas 108 y 230
-
-    # initial parameters
-    #level = 0
-    
-
-    # initial locations may be random generated
-    #gnomes =
-
-    #dungeon = mapping.Dungeon(ROWS, COLUMNS, 3)
-    # Agregarle cosas al dungeon, cosas que no se creen automáticamente al crearlo (por ejemplo, ya se crearon las escaleras).
-
-   # turns = 0
-    #while dungeon.level >= 0:
-        #turns += 1
-        # render map
-        #dungeon.render()
-
-        # read key
-       # key = 
-
-        # Hacer algo con keys:
-        # move player and/or gnomes
-
-    # Salió del loop principal, termina el juego
-
-"""
-   
+        game = actions.use_turn(PLAYER, GNOMES[DUNGEON.level], DUNGEON, game)
+        PLAYER.pickup(DUNGEON.get_items(PLAYER.loc()))      
+        DUNGEON.render(PLAYER, GNOMES[DUNGEON.level], DUNGEON.level)
+    if PLAYER.treasure == True:
+        print("You won in {} turns".format(turns))
+    else:
+        print("You lost in {} turns".format(turns))
