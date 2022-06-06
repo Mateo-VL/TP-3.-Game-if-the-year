@@ -1,7 +1,7 @@
 from typing import List, Set, Tuple
 import mapping
-from copy import copy
 
+Location = Tuple[int,int]
 # conceptualmente
 '''
 mapa: List[List[int]] = []
@@ -22,7 +22,7 @@ no se modofican.
 '''
 
 
-def are_connected(mapa: List[List[int]], from_point: Tuple[int, int], to_point: Tuple[int, int]) -> bool:
+def are_connected(dungeon: mapping.Dungeon, from_point: Location, to_point: Location) -> bool:
     '''
     Esta funcion devuelve si existe un camino posible entre los puntos
     que se piden.
@@ -33,13 +33,13 @@ def are_connected(mapa: List[List[int]], from_point: Tuple[int, int], to_point: 
     Returns:
         True si es existe el camino, False si no.
     '''
-    return search_path(mapa, from_point, to_point, set())
+    return search_path(dungeon.dungeon[dungeon.level], from_point, to_point, set())
 
 
 def search_path(
-        mapa: List[List[int]], 
-        current_point: Tuple[int, int], 
-        to_point: Tuple[int, int], 
+        level: mapping.Level, 
+        current_point: Location, 
+        to_point: Location, 
         visited: Set
     ) -> bool:
     '''
@@ -56,7 +56,7 @@ def search_path(
     '''
 
     found = False
-    queue_of_points = get_neighbours(mapa, current_point)
+    queue_of_points = get_neighbours(level, current_point)
 
     while not found and len(queue_of_points) > 0:
 
@@ -71,8 +71,8 @@ def search_path(
             found = True
 
 
-        for p in get_neighbours(mapa, current):
-            if is_available(visited, mapa, p):
+        for p in get_neighbours(level, current):
+            if is_available(visited, level, p):
                 queue_of_points.append(p)
         
 
@@ -80,7 +80,7 @@ def search_path(
     return found
 
 
-def get_neighbours(mapa: List[List[int]], point: Tuple[int, int]) -> List[Tuple[int, int]]:
+def get_neighbours(level: mapping.Level, point: Location) -> List[Location]:
     '''
     Dado un mapa y un punto, retorna la lista de puntos en su vecindario.
     Parmas:
@@ -95,8 +95,8 @@ def get_neighbours(mapa: List[List[int]], point: Tuple[int, int]) -> List[Tuple[
         '180': [-1, 0],
         '270': [0, 1]
     }
-    rows = len(mapa)
-    cols = len(mapa[0])
+    rows = level.rows
+    cols = level.columns
     neighbours = []
     for deltas in directions.values():
         possible_neighbour = (point[0]+ deltas[0], point[1]+ deltas[1])
@@ -105,7 +105,7 @@ def get_neighbours(mapa: List[List[int]], point: Tuple[int, int]) -> List[Tuple[
     return neighbours
 
 
-def is_inside_map(num_rows: int, num_cols: int, point: Tuple[int, int]) -> bool:
+def is_inside_map(num_rows: int, num_cols: int, point: Location) -> bool:
     '''
     Dado un punto y los limites del mapa determinar si el punto es válido.
     Params:
@@ -123,7 +123,7 @@ def is_inside_map(num_rows: int, num_cols: int, point: Tuple[int, int]) -> bool:
     return True
 
 
-def is_available(visited, mapa, point):
+def is_available(visited: Set, level: mapping.Level, point: Location):
     '''
     Dado un punto y un mapa, verficar si la posición esta vacía y es posible utiilizarla o no.
     Paras:
@@ -136,18 +136,9 @@ def is_available(visited, mapa, point):
     if point in visited:
         return False
     
-    if mapa[point[0]][point[1]] != EMPTY:
+    if not level.is_walkable(point):
         return False
 
     return True
 
-x = [
- [0,1,0,0,0,0,0,0,0],
- [0,1,1,1,0,1,0,1,1],
- [0,1,0,0,0,1,0,0,0],
- [0,1,0,1,1,1,1,0,0],
- [0,1,0,0,0,0,1,0,1],
- [0,0,0,1,1,1,1,0,0]]
 
-y = are_connected(x, (0,0), (5,8))
-print(y)

@@ -2,11 +2,8 @@ import mapping
 import human
 import actions
 import player
-import items         #cambiar los imports para entrega final
-#from src.templates.oop.human import Human
-#from src.templates.oop.items import Item
-#import src.templates.oop.actions as actions
-
+import items         
+import hay_camino
 
 ROWS = 25
 COLUMNS = 80
@@ -29,15 +26,18 @@ if __name__ == "__main__":
     DUNGEON.add_item(AMULET, 3, AMULET.loc())
     turns=0
     DUNGEON.render(PLAYER, GNOMES[DUNGEON.level], DUNGEON.level, turns)
-
     
+    print(hay_camino.are_connected(DUNGEON, DUNGEON.dungeon[DUNGEON.level].index(mapping.STAIR_UP), DUNGEON.dungeon[DUNGEON.level].index(mapping.STAIR_DOWN)))    
     while game and PLAYER.alive==True:
         turns +=1
         
         game = actions.use_turn(PLAYER, GNOMES[DUNGEON.level], DUNGEON, game)
         PLAYER.pickup(DUNGEON.get_items(PLAYER.loc()))      
-        DUNGEON.render(PLAYER, GNOMES[DUNGEON.level], DUNGEON.level)
+        DUNGEON.render(PLAYER, GNOMES[DUNGEON.level], DUNGEON.level, turns)
+        print(hay_camino.are_connected(DUNGEON, DUNGEON.dungeon[DUNGEON.level].index(mapping.STAIR_UP), DUNGEON.dungeon[DUNGEON.level].index(mapping.STAIR_DOWN)))
     if PLAYER.treasure == True:
         print("You won in {} turns".format(turns))
     else:
         print("You lost in {} turns".format(turns))
+
+
