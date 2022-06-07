@@ -20,12 +20,8 @@ def use_turn(character: human.Human, gnome:player.Gnome, dungeon: mapping.Dungeo
     if key == b'e':
         game = False
         return game
-<<<<<<< HEAD
-    
-=======
  
     gnome_new_location = _get_new_location(gnome, random.choice(list_letters))
->>>>>>> dr
     new_location = _get_new_location(character, key)
     #gnome_new_location = _get_new_location(gnome, random.choice(list_letters))
     gnome_new_location = gnome.loc()

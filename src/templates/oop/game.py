@@ -2,13 +2,9 @@ import mapping
 import human
 import actions
 import player
-<<<<<<< HEAD
-import items         #cambiar los imports para entrega final
-=======
 import items         
 
 
->>>>>>> dr
 
 if __name__ == "__main__":
     """
