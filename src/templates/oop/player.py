@@ -1,5 +1,6 @@
 from __future__ import annotations
 import random
+from typing import Tuple, List
 
 class Player:
     def __init__(self, name, xy, hit_points=50):
@@ -7,6 +8,7 @@ class Player:
         self.x, self.y = xy
         self.hp = hit_points
         self.max_hp = hit_points
+        self.search_range = 3
 
     def loc(self):
         """Return the location of character"""
@@ -76,5 +78,13 @@ class Gnome(Player):
         """
         return self.face
     
+    def search_area(self, rows: int, columns: int) -> List[Tuple[int, int]]:
+        detection_area = []
+        for x in range(self.x - self.search_range, self.x + self.search_range + 1):
+            if not (x < 1 or x > columns - 1):
+                for y in range(self.y - self.search_range, self.y + self.search_range + 1):
+                    if not (y < 1 or y > rows - 1):
+                        detection_area.append((x, y))
+        return detection_area
     
 

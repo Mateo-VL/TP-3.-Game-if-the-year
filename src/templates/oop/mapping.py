@@ -2,7 +2,7 @@ import random
 from typing import Optional
 from typing import List, Tuple, Set
 from math import ceil
-
+from copy import copy
 import player
 import items
 
@@ -95,11 +95,13 @@ class Level:
         self.tiles[i][j] = STAIR_DOWN
 
     def add_item(self, item: items.Item, location: Optional[Location] = None):
-        """Add an item to a given location in the map. If no location is given, one free space is randomly searched.
-        This method might never if the probability of finding a free space is low.
+        """Add an item to a given location in the map. If no location is given, one free space that is connected to
+        the player locationis randomly searched. This method might never if the probability of finding a free space is low.
         """
         if location is None:
             j, i = self.find_free_tile()
+            while not self.are_connected((j, i), item.loc()):
+                j, i = self.find_free_tile()
         else:
             j, i = location
         items = self.items.get((i, j), [])
@@ -294,7 +296,42 @@ class Level:
             return False
         return True
     
-
+    def get_path(
+        self, 
+        search_area: List[Location],
+        current_point: Location,
+        to_point: Location, 
+        visited: Set,
+        path: List[Location]
+    ) -> Tuple[bool, List[Location]]:  
+        """
+        The get_path function is a recursive function that searches for a possible path between two points if one exists.
+        If it finds its destination, it returns True and a reverse path to get there. If not, it returns False and a empty list.
+        
+        :param current_point:Location: Store the current point in the path
+        :param to_point:Location: Indicate the end of the path
+        :param visited:Set: Store the visited points
+        :param path:List[Location]: Store the path that is found
+        :return: A Tuple that contains a boolean value indicating if the path is found and a list of points that make up the path.
+        """
+        if current_point == to_point:
+            path.append(current_point)
+            return True, path
+    
+        found = False
+        valid_path = path
+        for point in self.get_neighbours(current_point):
+            if point in search_area:
+                if self.is_available(visited, point):
+                    visited.add(point)
+                    current_visited = copy(visited)
+                    found, valid_path = self.get_path(search_area, point, to_point, current_visited, path)
+                if found:
+                    valid_path.append(current_point)
+                    break
+            
+        return found, valid_path
+    
 
 
     
@@ -376,14 +413,14 @@ class Dungeon:
     def dig(self, xy: Location) -> None:
         """Replace a WALL at the given location, by AIR. See Level.dig()."""
         return self.dungeon[self.level].dig(xy)
-#completar
-    def is_free(self, xy: Location) -> bool:
-        """NOT IMPLEMENTED. Check if a given location is free of other entities. See Level.is_free()."""
-        return self.dungeon[self.level].is_free(xy)
     
     def is_inside_map(self, xy: Location) -> bool:
         """Check if a given location is inside the map."""
         return self.dungeon[self.level].is_inside_map(xy)
+    
+    def get_path(self, search_area, from_point: Location, to_point: Location) -> Location:
+        """Get a path between two points. See Level.get_path()."""
+        return self.dungeon[self.level].get_path(search_area, from_point, to_point, set(), [])[1][0]
     
     def get_columns(self) -> int:
         """ Return the number of columns"""

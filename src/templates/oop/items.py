@@ -38,5 +38,8 @@ class Amulet(Item):
 class PickAxe(Item):
     def __init__(self, name: str, fc: str, xy):
         super().__init__(name, fc, 'tool', xy)
+    
+    def set_location(self, xy):
+        self.x, self.y = xy
 
 

@@ -14,23 +14,28 @@ Location = Tuple[int, int]
 def use_turn(character: human.Human, gnome:player.Gnome, dungeon: mapping.Dungeon, game: bool) -> bool:
     key = msvcrt.getch()
     list_letters=[b"w", b"a", b"s", b"d"]
+    rows = dungeon.get_rows()
+    cols = dungeon.get_columns()
     
     if key == b'e':
         game = False
         return game
-     #llamo funcion 
-    #if is_near(character, gnome)== False:
-    gnome_new_location = _get_new_location(gnome, random.choice(list_letters))
-    #elif is_near(character, gnome)== True:
-        #find_gnome_movement(character, gnome, dungeon)
+    
     new_location = _get_new_location(character, key)
+    #gnome_new_location = _get_new_location(gnome, random.choice(list_letters))
+    gnome_new_location = gnome.loc()
+    
     if dungeon.is_inside_map(new_location):
         _move_to(dungeon, character, new_location)
         attack(character, gnome)
     
+    if character.loc() in gnome.search_area(rows, cols):
+        gnome_new_location = gnome_gets_angry(gnome, character, dungeon, rows, cols)
+        
     if dungeon.is_inside_map(gnome_new_location):
         _move_to(dungeon, gnome, gnome_new_location)
         attack(gnome, character)
+        
     
     if dungeon.level < 2 and character.loc() == dungeon.dungeon[dungeon.level].index(mapping.STAIR_DOWN):
         descend_stair(dungeon, character)
@@ -39,30 +44,6 @@ def use_turn(character: human.Human, gnome:player.Gnome, dungeon: mapping.Dungeo
         game = climb_stair(dungeon, character, game)
         
     return game
-
-def is_near(player: human.Human, gnome: player.Player):
-    """
-    The is_near function checks if the player is within 4 spaces of a gnome.
-        
-    :param player:human.Human: Access the player's location
-    :param gnome:player.Player: Access the gnome's location
-    :return: A boolean value
-    
-    """
-    if player.loc()[0] - gnome.loc()[0]<= abs(4)  and player.loc()[1] - gnome.loc()[1]< abs(4) <=4:
-        return True
-    return False
-
-def find_gnome_movement(character: human.Human, gnome:player.Gnome, dungeon: mapping.Dungeon):
-    
-    if gnome.loc()== player.loc():
-        return gnome.loc()
-    else:
-        dungeon[dungeon.level].are_connected(gnome.loc(), player.loc())
-
-    
-    
-    
 
 def _get_new_location(player: player.Player, key: bytes) -> Location:
     """
@@ -83,6 +64,18 @@ def _get_new_location(player: player.Player, key: bytes) -> Location:
             new_location= _move_down(player)
         elif key == b"d":
             new_location= _move_right(player)
+    return new_location
+
+def gnome_gets_angry(gnome: player.Gnome,player: human.Human, dungeon: mapping.Dungeon, rows, cols) -> Location:
+    """
+    The gnome_gets_angry function allows the gnome to move towards the player if the player is 
+    within detection range of the gnome.
+    
+    :param gnome:player.Gnome: Access the gnome's location
+    :param dungeon:mapping.Dungeon: Access the dungeon's map
+    :return: the location the gnome would move to.
+    """
+    new_location = dungeon.get_path(gnome.search_area(rows, cols),player.loc(), gnome.loc())
     return new_location
 
                  
@@ -185,7 +178,6 @@ def descend_stair(dungeon: mapping.Dungeon, human: human.Human) -> bool:
     
     :param dungeon:mapping.Dungeon: Access the dungeon's level.
     :param human:human.Human: Refer to the human object that is created in the main function.
-    :return: where player appears in other level.
     """
     dungeon.level += 1
     human.move_to(dungeon.dungeon[dungeon.level].index(mapping.STAIR_UP))

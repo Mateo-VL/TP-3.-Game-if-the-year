@@ -3,11 +3,6 @@ import human
 import actions
 import player
 import items         #cambiar los imports para entrega final
-#from src.templates.oop.human import Human
-#from src.templates.oop.items import Item
-#import src.templates.oop.actions as actions
-import hay_camino
-
 
 if __name__ == "__main__":
     ROWS = 25
@@ -20,7 +15,7 @@ if __name__ == "__main__":
     AMULET= items.Amulet("Amulet", '"', DUNGEON.dungeon[2].find_free_tile())
     PICKAXE= items.PickAxe("Pickaxe", "(", DUNGEON.find_free_tile())
     game = True 
-    DUNGEON.add_item(PICKAXE, 1, PICKAXE.loc())
+    DUNGEON.add_item(PICKAXE, 1)
     DUNGEON.add_item(SWORD, 2, SWORD.loc())
     DUNGEON.add_item(AMULET, 3, AMULET.loc())
     turns=0
@@ -32,10 +27,9 @@ if __name__ == "__main__":
         game = actions.use_turn(PLAYER, GNOMES[DUNGEON.level], DUNGEON, game)
         PLAYER.pickup(DUNGEON.get_items(PLAYER.loc()))      
         DUNGEON.render(PLAYER, GNOMES[DUNGEON.level], DUNGEON.level, turns)
-        print(DUNGEON.dungeon[DUNGEON.level].are_connected(DUNGEON.dungeon[DUNGEON.level].index(mapping.STAIR_UP), DUNGEON.dungeon[DUNGEON.level].index(mapping.STAIR_DOWN)))
     if PLAYER.treasure == True:
         print('CONGRATULATIONS ', PLAYER, ', YOU HAVE FOUND THE TREASURE')
     else:
-        print('YOU HAVE BEEN DEFEATED', PLAYER, 'BETTER LUCK NEXT TIME')
+        print('YOU LOST', PLAYER, 'BETTER LUCK NEXT TIME')
 
 
