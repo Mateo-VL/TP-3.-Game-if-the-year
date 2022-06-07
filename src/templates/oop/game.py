@@ -15,6 +15,7 @@ if __name__ == "__main__":
     DUNGEON = mapping.Dungeon(ROWS, COLUMNS)   
     PLAYER = human.Human(DUNGEON.dungeon[DUNGEON.level].index(mapping.STAIR_UP))
     GNOMES = [player.Gnome('Gnome', DUNGEON.find_free_tile()) for _ in range(len(DUNGEON.dungeon))]
+    path = []
     
     SWORD= items.Sword("Sword", "/", 10, 20, DUNGEON.dungeon[1].find_free_tile())
     AMULET= items.Amulet("Amulet", '"', DUNGEON.dungeon[2].find_free_tile())
@@ -27,7 +28,7 @@ if __name__ == "__main__":
     DUNGEON.render(PLAYER, GNOMES[DUNGEON.level], DUNGEON.level, turns)
     while game and PLAYER.alive==True:
         turns +=1
-        game = actions.use_turn(PLAYER, GNOMES[DUNGEON.level], DUNGEON, game)
+        game, path = actions.use_turn(PLAYER, GNOMES[DUNGEON.level], DUNGEON, game, path)
         PLAYER.pickup(DUNGEON.get_items(PLAYER.loc()))      
         DUNGEON.render(PLAYER, GNOMES[DUNGEON.level], DUNGEON.level, turns)
     if PLAYER.treasure == True:

@@ -1,4 +1,4 @@
-from typing import Union, Tuple
+from typing import Union, List, Tuple
 
 import human
 import mapping
@@ -11,7 +11,7 @@ numeric = Union[int, float]
 Location = Tuple[int, int]
 
 
-def use_turn(character: human.Human, gnome:player.Gnome, dungeon: mapping.Dungeon, game: bool) -> bool:
+def use_turn(character: human.Human, gnome:player.Gnome, dungeon: mapping.Dungeon, game: bool, path: List[Location]) -> bool:
     key = msvcrt.getch()
     list_letters=[b"w", b"a", b"s", b"d"]
     rows = dungeon.get_rows()
@@ -21,17 +21,21 @@ def use_turn(character: human.Human, gnome:player.Gnome, dungeon: mapping.Dungeo
         game = False
         return game
  
-    gnome_new_location = _get_new_location(gnome, random.choice(list_letters))
-    new_location = _get_new_location(character, key)
     #gnome_new_location = _get_new_location(gnome, random.choice(list_letters))
     gnome_new_location = gnome.loc()
-    
+    new_location = _get_new_location(character, key)
+
     if dungeon.is_inside_map(new_location):
         _move_to(dungeon, character, new_location)
         attack(character, gnome)
     
-    if character.loc() in gnome.search_area(rows, cols):
-        gnome_new_location = gnome_gets_angry(gnome, character, dungeon, rows, cols)
+    if character.loc() in gnome.search_area(rows, cols) or len(path)  < 0 :
+        path = gnome_gets_angry(gnome, character, dungeon, rows, cols)
+        gnome_new_location = path[0]
+        path.pop(0)
+        if character.loc() == gnome.loc():
+            gnome_new_location = gnome.loc()
+
         
     if dungeon.is_inside_map(gnome_new_location):
         _move_to(dungeon, gnome, gnome_new_location)
@@ -44,7 +48,7 @@ def use_turn(character: human.Human, gnome:player.Gnome, dungeon: mapping.Dungeo
     elif character.loc()== dungeon.dungeon[dungeon.level].index(mapping.STAIR_UP):
         game = climb_stair(dungeon, character, game)
         
-    return game
+    return game, path
 
 def _get_new_location(player: player.Player, key: bytes) -> Location:
     """
@@ -67,7 +71,6 @@ def _get_new_location(player: player.Player, key: bytes) -> Location:
             new_location= _move_right(player)
     return new_location
 
-<<<<<<< HEAD
 def gnome_gets_angry(gnome: player.Gnome,player: human.Human, dungeon: mapping.Dungeon, rows, cols) -> Location:
     """
     The gnome_gets_angry function allows the gnome to move towards the player if the player is 
@@ -87,8 +90,6 @@ def clip(value: numeric, minimum: numeric, maximum: numeric) -> numeric:
     if value > maximum:
         return maximum
     return value
-=======
->>>>>>> dr
 
 
 def attack(player: human.Human, gnome: player.Gnome): # completar

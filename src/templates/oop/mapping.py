@@ -419,7 +419,7 @@ class Dungeon:
     
     def get_path(self, search_area, from_point: Location, to_point: Location) -> Location:
         """Get a path between two points. See Level.get_path()."""
-        return self.dungeon[self.level].get_path(search_area, from_point, to_point, set(), [])[1][0]
+        return self.dungeon[self.level].get_path(search_area, from_point, to_point, set(), [])[1]
     
     def get_columns(self) -> int:
         """ Return the number of columns"""
