@@ -137,7 +137,7 @@ class Level:
         The is_walkable function checks if a given location is walkable.
         
         :param location:Location: Specify the location of the tile that is being checked
-        :return: A boolean value
+        
         """
         j, i = location
         return self.tiles[i % self.rows][j % self.columns].walkable
@@ -215,7 +215,7 @@ class Level:
         :param current_point:Location: Indicate the current point in the search
         :param end:Location: Determine if the search has finished
         :param visited:Set: Avoid cycles
-        :return: True if the end point is found, and false otherwise
+        :return: True if the end point is found, and false otherwise.
         """
 
 
@@ -226,14 +226,13 @@ class Level:
     
             current = queue_of_points.pop(0)
             
-            if current in visited: # chequeamos que el espacio no fue recorrido
+            if current in visited: 
                 continue
     
             visited.add(current)
     
             if current == end:
                 found = True
-    
     
             for p in self.get_neighbours(current):
                 if self.is_available(visited, p):
@@ -269,7 +268,7 @@ class Level:
         The is_inside_map function checks if a given point is inside the map.
         
         :param point:Location: the point to check
-        :return: True if the point is inside the map, False otherwise
+        :return: True if the point is inside the map, False otherwise.
         """
         if point[0] < 0 or point[0] >= self.columns:
             return False
@@ -287,7 +286,7 @@ class Level:
         
         :param visited:Set: Check if the point has already been visited
         :param point:Location: Check if the point is walkable
-        :return: True if the point is not in the visited set and is walkable
+        :return: True if the point is not in the visited set and is walkable. False otherwise.
         """
         if point in visited:
             return False

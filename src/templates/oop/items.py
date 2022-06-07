@@ -12,12 +12,21 @@ class Item:
         self.x, self.y = xy
     
     def loc(self):
+        """
+        Return location of the item.
+        """
         return self.x, self.y 
 
     def __str__(self):
+        """
+        Return the name of the item.
+        """
         return self.name
 
     def __repr__(self):
+        """
+        Return the name and face of a particular item.
+        """
         return f"Item('{self.name}', '{self.face}')"
     
 
